@@ -1,9 +1,24 @@
 [
     {
-        "name": "Product 1",
-        "category": "pizzas",
-        "price": 2.2,
-        "image": "/images/1.png"
+        "name": "Ayam Geprek",
+        "category": "makanan",
+        "stock": 10,
+        "price": 15000,
+        "image": "/images/products/ayam-geprek.png"
+    },
+    {
+        "name": "Nasi Gorengk",
+        "category": "minuman",
+        "stock": 11,
+        "price": 20000,
+        "image": "/images/products/nasi-goreng.png"
+    },
+    {
+        "name": "Teh Manis",
+        "category": "minuman",
+        "stock": 20,
+        "price": 5000,
+        "image": "/images/products/teh-manis.png"
     },
     {
         "name": "Product 6",
