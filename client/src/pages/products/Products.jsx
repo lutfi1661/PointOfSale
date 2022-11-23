@@ -71,7 +71,7 @@ const Products = () => {
       ),
     },
     {
-      title: "Jumlah Stok",
+      title: "Status",
       dataIndex: "stock",
     },
     {
@@ -173,9 +173,8 @@ const Products = () => {
             </FormItem>
             <Form.Item name="category" label="Category">
               <Select>
-                <Select.Option value="pizzas">Pizzas</Select.Option>
-                <Select.Option value="burgers">Burgers</Select.Option>
-                <Select.Option value="drinks">Drinks</Select.Option>
+                <Select.Option value="makanan">Makanan</Select.Option>
+                <Select.Option value="minuman">Minuman</Select.Option>
               </Select>
             </Form.Item>
             <FormItem name="price" label="Price">
