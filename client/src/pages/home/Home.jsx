@@ -13,13 +13,11 @@ const Home = () => {
   const categories = [
     {
       name: "makanan",
-      imageUrl:
-        "https://creazilla-store.fra1.digitaloceanspaces.com/cliparts/27954/pizza-pepperoni-clipart-xl.png",
+      imageUrl: "https://cdn-icons-png.flaticon.com/512/2771/2771401.png",
     },
     {
       name: "minuman",
-      imageUrl:
-        "https://cdn.pixabay.com/photo/2022/01/04/23/00/fast-food-6916101_960_720.png",
+      imageUrl: "https://cdn-icons-png.flaticon.com/512/38/38706.png",
     },
   ];
 
