@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { Layout, Menu } from 'antd';
+import React, { useEffect, useState } from "react";
+import { Layout, Menu } from "antd";
 import {
   MenuUnfoldOutlined,
   MenuFoldOutlined,
@@ -7,17 +7,23 @@ import {
   UserSwitchOutlined,
   MoneyCollectOutlined,
   LogoutOutlined,
-  ShoppingCartOutlined
-} from '@ant-design/icons';
-import './layout.css';
-import { Link, useNavigate } from 'react-router-dom';
-import { useSelector } from 'react-redux';
-import Spinner from './Spinner';
+  ShoppingCartOutlined,
+} from "@ant-design/icons";
+import "./layout.css";
+import { Link, useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import Spinner from "./Spinner";
+import { HiOutlineMenuAlt2 } from "react-icons/hi";
+import { MdOutlineDashboard } from "react-icons/md";
+import { RiBillLine } from "react-icons/ri";
+import { FiUsers } from "react-icons/fi";
+import { TbReport } from "react-icons/tb";
+import { BiFoodMenu, BiLogOut } from "react-icons/bi";
 
 const { Header, Sider, Content } = Layout;
 
-const LayoutApp = ({children}) => {
-  const {cartItems, loading} = useSelector(state => state.rootReducer);
+const LayoutApp = ({ children }) => {
+  const { cartItems, loading } = useSelector((state) => state.rootReducer);
 
   const [collapsed, setCollapsed] = useState(false);
   const navigate = useNavigate();
@@ -27,41 +33,78 @@ const LayoutApp = ({children}) => {
   };
 
   useEffect(() => {
-    localStorage.setItem('cartItems', JSON.stringify(cartItems))
+    localStorage.setItem("cartItems", JSON.stringify(cartItems));
   }, [cartItems]);
 
+  const menus = [
+    { name: "Menu", link: "/", icon: MdOutlineDashboard },
+    { name: "Faktur", link: "/bills", icon: RiBillLine },
+    { name: "Produk", link: "/products", icon: BiFoodMenu },
+    { name: "Karyawan", link: "/customers", icon: FiUsers },
+    { name: "Laporan", link: "/reports", icon: TbReport },
+    {
+      name: "Log Out",
+      link: "/logout",
+      icon: BiLogOut,
+      margin: true,
+    },
+  ];
+
+  const [open, setOpen] = useState(true);
+
   return (
-    <Layout>
-      {loading && <Spinner />}
-      <Sider trigger={null} collapsible collapsed={collapsed}>
-        <div className="logo">
-            <h2 className="logo-title">MP POS</h2>
+    <section className="flex">
+      {/* SIDEBAR */}
+      <div
+        className={`bg-gray-800 min-h-screen ${
+          open ? "w-72" : "w-16"
+        } duration-500 text-gray-100 px-4`}
+      >
+        <div className="py-3 flex justify-end"></div>
+        <div className="mt-10 flex flex-col gap-4 relative">
+          {menus?.map((menu, i) => (
+            <Link
+              to={menu?.link}
+              key={i}
+              className={` ${menu?.margin && "mt-5"}
+                  group text-white flex items-center text-sm gap-3.5 font-medium p-2 hover:bg-gray-500 hover:text-white rounded-md`}
+            >
+              <div>{React.createElement(menu?.icon, { size: "20" })}</div>
+              <h2
+                style={{
+                  transitionDelay: `${i + 3}00ms`,
+                }}
+                className={`text-white whitespace-pre duration-500 ${
+                  !open && "opacity-0 translate-x-28 overflow-hidden"
+                }`}
+              >
+                {menu?.name}
+              </h2>
+              <h2
+                className={`${
+                  open && "hidden"
+                } absolute left-48 bg-white font-semibold whitespace-pre text-gray-900 rounded-md drop-shadow-lg px-0 py-0 w-0 overflow-hidden group-hover:px-2 group-hover:py-1 group-hover:left-14 group-hover:duration-300 group-hover:w-fit`}
+                onClick={`${
+                  menu?.logout
+                    ? '{() => {localStorage.removeItem("auth"); navigate("/login");}'
+                    : ""
+                } `}
+              >
+                {menu?.name}
+              </h2>
+            </Link>
+          ))}
         </div>
-        <Menu theme="dark" mode="inline" defaultSelectedKeys={window.location.pathname}>
-            <Menu.Item key='/' icon={<HomeOutlined />}>
-                <Link to="/">Home</Link>
-            </Menu.Item>
-            <Menu.Item key='/bills' icon={<MoneyCollectOutlined />}>
-                <Link to="/bills">Bills</Link>
-            </Menu.Item>
-            <Menu.Item key="/products" icon={<HomeOutlined />}>
-                <Link to="/products">Products</Link>
-            </Menu.Item>
-            <Menu.Item key='/customers' icon={<UserSwitchOutlined />}>
-                <Link to="/customers">Customers</Link>
-            </Menu.Item>
-            <Menu.Item key='/logout' icon={<LogoutOutlined />} onClick={() => {localStorage.removeItem("auth"); navigate("/login");}}>
-                LogOut
-            </Menu.Item>
-        </Menu>
-      </Sider>
+      </div>
+      {/* NAVIGATION BAR */}
       <Layout className="site-layout">
         <Header className="site-layout-background" style={{ padding: 0 }}>
-          {React.createElement(collapsed ? MenuUnfoldOutlined : MenuFoldOutlined, {
-            className: 'trigger',
-            onClick: toggle,
-          })}
-          <div className="cart-items" onClick={() => navigate('/cart')}>
+          <HiOutlineMenuAlt2
+            size={26}
+            className="cursor-pointer"
+            onClick={() => setOpen(!open)}
+          />
+          <div className="cart-items" onClick={() => navigate("/cart")}>
             <ShoppingCartOutlined />
             <span className="cart-badge">{cartItems.length}</span>
           </div>
@@ -69,7 +112,7 @@ const LayoutApp = ({children}) => {
         <Content
           className="site-layout-background"
           style={{
-            margin: '24px 16px',
+            margin: "24px 16px",
             padding: 24,
             minHeight: 280,
           }}
@@ -77,7 +120,7 @@ const LayoutApp = ({children}) => {
           {children}
         </Content>
       </Layout>
-    </Layout>
+    </section>
   );
 };
 

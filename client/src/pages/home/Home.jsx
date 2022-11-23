@@ -9,15 +9,15 @@ const Home = () => {
   const dispatch = useDispatch();
 
   const [productData, setProductData] = useState([]);
-  const [selectedCategory, setSelectedCategory] = useState("pizzas");
+  const [selectedCategory, setSelectedCategory] = useState("makanan");
   const categories = [
     {
       name: "makanan",
-      imageUrl: "https://cdn-icons-png.flaticon.com/512/2771/2771401.png",
+      imageUrl: "https://cdn-icons-png.flaticon.com/512/857/857755.png",
     },
     {
       name: "minuman",
-      imageUrl: "https://cdn-icons-png.flaticon.com/512/38/38706.png",
+      imageUrl: "https://cdn-icons-png.flaticon.com/512/4329/4329534.png",
     },
   ];
 
