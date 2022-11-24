@@ -6,6 +6,8 @@ import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
 import { Button, Form, Input, Modal, Select, Table, message } from "antd";
 import FormItem from "antd/lib/form/FormItem";
 
+import CurrencyFormat from "react-currency-format";
+
 const Products = () => {
   const dispatch = useDispatch();
   const [productData, setProductData] = useState([]);
@@ -172,7 +174,9 @@ const Products = () => {
       {popModal && (
         <Modal
           className="rounded-full"
-          title={`${editProduct !== null ? "Edit Product" : "Add New Product"}`}
+          title={`${
+            editProduct !== null ? "Ubah Produk" : "Tambah Produk Baru"
+          }`}
           visible={popModal}
           onCancel={() => {
             setEditProduct(null);

@@ -6,6 +6,8 @@ import { useReactToPrint } from "react-to-print";
 import { EyeOutlined } from "@ant-design/icons";
 import { useDispatch } from "react-redux";
 import Layout from "../../components/Layout";
+import CurrencyFormat from "react-currency-format";
+import { Number, Currency } from "react-intl-number-format";
 
 const Bills = () => {
   const componentRef = useRef();
@@ -55,7 +57,7 @@ const Bills = () => {
       dataIndex: "customerAddress",
     },
     {
-      title: "Sub Total",
+      title: "Subtotal",
       dataIndex: "subTotal",
     },
     {
@@ -67,17 +69,19 @@ const Bills = () => {
       dataIndex: "totalAmount",
     },
     {
-      title: "Action",
+      title: "Aksi",
       dataIndex: "_id",
       render: (id, record) => (
         <div>
-          <EyeOutlined
-            className="cart-edit eye"
+          <button
+            className="bg-yellow-500 hover:bg-yellow-600 text-gray-800 font-semibold py-2 px-4 rounded-full mx-2"
             onClick={() => {
               setSelectedBill(record);
               setPopModal(true);
             }}
-          />
+          >
+            Lihat
+          </button>
         </div>
       ),
     },
@@ -89,12 +93,12 @@ const Bills = () => {
 
   return (
     <Layout>
-      <h2>All Invoice </h2>
+      <h2>Semua Faktur </h2>
       <Table dataSource={billsData} columns={columns} bordered />
 
       {popModal && (
         <Modal
-          title="Invoice Details"
+          title="Detail Faktur"
           width={400}
           pagination={false}
           visible={popModal}
@@ -103,43 +107,46 @@ const Bills = () => {
         >
           <div className="card" ref={componentRef}>
             <div className="cardHeader">
-              <h2 className="logo">MP POS</h2>
-              <span>
-                Number: <b>+381/0000000</b>
-              </span>
-              <span>
-                Address: <b>34000 Kragujevac, Serbia</b>
-              </span>
+              <h2 className="logo">Aplikasi Pos</h2>
             </div>
             <div className="cardBody">
               <div className="group">
-                <span>Customer Name:</span>
+                <span>Nama Pelanggan:</span>
                 <span>
                   <b>{selectedBill.customerName}</b>
                 </span>
               </div>
               <div className="group">
-                <span>Customer Phone:</span>
+                <span>Nomor Telepon:</span>
                 <span>
                   <b>{selectedBill.customerPhone}</b>
                 </span>
               </div>
               <div className="group">
-                <span>Customer Address:</span>
+                <span>Alamat:</span>
                 <span>
                   <b>{selectedBill.customerAddress}</b>
                 </span>
               </div>
               <div className="group">
-                <span>Date Order:</span>
+                <span>Tanggal Pembelian:</span>
                 <span>
                   <b>{selectedBill.createdAt.toString().substring(0, 10)}</b>
                 </span>
               </div>
               <div className="group">
-                <span>Total Amount:</span>
+                <span>Total Pembelian:</span>
                 <span>
-                  <b>${selectedBill.totalAmount}</b>
+                  <b>
+                    <CurrencyFormat
+                      value={selectedBill.totalAmount}
+                      displayType={"text"}
+                      thousandSeparator={"."}
+                      decimalSeparator={","}
+                      prefix={"Rp"}
+                      renderText={(value) => <div>{value}</div>}
+                    />
+                  </b>
                 </span>
               </div>
             </div>
@@ -155,7 +162,7 @@ const Bills = () => {
                       </span>
                     </div>
                     <div className="group">
-                      <span>Quantity:</span>
+                      <span>Jumlah:</span>
                       <span>
                         <b>{product.quantity}</b>
                       </span>
@@ -163,7 +170,16 @@ const Bills = () => {
                     <div className="group">
                       <span>Harga:</span>
                       <span>
-                        <b>${product.price}</b>
+                        <b>
+                          <CurrencyFormat
+                            value={product.price}
+                            displayType={"text"}
+                            thousandSeparator={"."}
+                            decimalSeparator={","}
+                            prefix={"Rp"}
+                            renderText={(value) => <div>{value}</div>}
+                          />
+                        </b>
                       </span>
                     </div>
                   </div>
@@ -171,9 +187,33 @@ const Bills = () => {
               ))}
               <div className="footerCardTotal">
                 <div className="group">
+                  <h3>Pajak:</h3>
+                  <h3>
+                    <b>
+                      <CurrencyFormat
+                        value={selectedBill.totalAmount}
+                        displayType={"text"}
+                        thousandSeparator={"."}
+                        decimalSeparator={","}
+                        prefix={"Rp"}
+                        renderText={(value) => <div>{value}</div>}
+                      />
+                    </b>
+                  </h3>
+                </div>
+                <div className="group">
                   <h3>Total:</h3>
                   <h3>
-                    <b>${selectedBill.totalAmount}</b>
+                    <b>
+                      <CurrencyFormat
+                        value={selectedBill.totalAmount}
+                        displayType={"text"}
+                        thousandSeparator={"."}
+                        decimalSeparator={","}
+                        prefix={"Rp"}
+                        renderText={(value) => <div>{value}</div>}
+                      />
+                    </b>
                   </h3>
                 </div>
               </div>

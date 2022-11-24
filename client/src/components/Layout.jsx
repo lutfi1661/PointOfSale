@@ -96,7 +96,7 @@ const LayoutApp = ({ children }) => {
         </div>
       </div>
       <Layout className="site-layout">
-        <Header className="site-layout-background" style={{ padding: 0 }}>
+        <Header className="site-layout-background" style={{ padding: 10 }}>
           <HiOutlineMenuAlt2
             size={26}
             className="cursor-pointer inline"

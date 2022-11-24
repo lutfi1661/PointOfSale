@@ -1,6 +1,7 @@
 import React from "react";
 import { Button, Card } from "antd";
 import { useDispatch } from "react-redux";
+import CurrencyFormat from "react-currency-format";
 
 const Product = ({ product }) => {
   const dispatch = useDispatch();
@@ -42,7 +43,16 @@ const Product = ({ product }) => {
           <p>Deskripsi ...</p>
         </div>
         <div class="flex items-center justify-between">
-          <span class="text-lg font-bold text-gray-900 dark:text-white">{`Rp${product.price}`}</span>
+          <span class="text-lg font-bold text-gray-900 dark:text-white">
+            <CurrencyFormat
+              value={product.price}
+              displayType={"text"}
+              thousandSeparator={"."}
+              decimalSeparator={","}
+              prefix={"Rp"}
+              renderText={(value) => <div>{value}</div>}
+            />
+          </span>
           <a
             onClick={() => handlerToCart()}
             href="#"
