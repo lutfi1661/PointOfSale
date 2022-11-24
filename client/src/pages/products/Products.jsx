@@ -64,36 +64,44 @@ const Products = () => {
       dataIndex: "name",
     },
     {
-      title: "Image",
+      title: "Gambar",
       dataIndex: "image",
       render: (image, record) => (
         <img src={image} alt={record.name} height={60} width={60} />
       ),
     },
     {
-      title: "Status",
-      dataIndex: "stock",
+      title: "Kategori",
+      dataIndex: "category",
     },
     {
       title: "Harga",
       dataIndex: "price",
     },
     {
+      title: "Status",
+      dataIndex: "status",
+    },
+    {
       title: "Aksi",
       dataIndex: "_id",
       render: (id, record) => (
         <div>
-          <DeleteOutlined
-            className="cart-action"
-            onClick={() => handlerDelete(record)}
-          />
-          <EditOutlined
-            className="cart-edit"
+          <button
+            className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-full mx-2"
             onClick={() => {
               setEditProduct(record);
               setPopModal(true);
             }}
-          />
+          >
+            Ubah
+          </button>
+          <button
+            className="bg-red-500 hover:bg-red-600 text-white font-semibold py-2 px-4 rounded-full mx-2"
+            onClick={() => handlerDelete(record)}
+          >
+            Hapus
+          </button>
         </div>
       ),
     },
@@ -147,11 +155,19 @@ const Products = () => {
 
   return (
     <LayoutApp>
-      <h2>All Products </h2>
-      <Button className="add-new" onClick={() => setPopModal(true)}>
-        Add New
-      </Button>
-      <Table dataSource={productData} columns={columns} bordered />
+      <h2>Semua Produk</h2>
+      <button
+        className="block m-3 p-2 bg-green-400 hover:bg-green-600 text-white border-none cursor-pointer w-30 rounded-lg"
+        onClick={() => setPopModal(true)}
+      >
+        Tambah Item
+      </button>
+      <Table
+        dataSource={productData}
+        columns={columns}
+        bordered
+        className="capitalize"
+      />
 
       {popModal && (
         <Modal
@@ -175,6 +191,12 @@ const Products = () => {
               <Select>
                 <Select.Option value="makanan">Makanan</Select.Option>
                 <Select.Option value="minuman">Minuman</Select.Option>
+              </Select>
+            </Form.Item>
+            <Form.Item name="status" label="Status">
+              <Select>
+                <Select.Option value="tersedia">Tersedia</Select.Option>
+                <Select.Option value="habis">Habis</Select.Option>
               </Select>
             </Form.Item>
             <FormItem name="price" label="Price">

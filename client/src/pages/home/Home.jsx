@@ -52,13 +52,13 @@ const Home = () => {
             }`}
             onClick={() => setSelectedCategory(category.name)}
           >
-            <h3 className="categoryName">{category.name}</h3>
             <img
               src={category.imageUrl}
               alt={category.name}
-              height={60}
-              width={60}
+              height={40}
+              width={40}
             />
+            <h3 className="categoryName">{category.name}</h3>
           </div>
         ))}
       </div>
