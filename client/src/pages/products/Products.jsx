@@ -171,6 +171,7 @@ const Products = () => {
 
       {popModal && (
         <Modal
+          className="rounded-full"
           title={`${editProduct !== null ? "Edit Product" : "Add New Product"}`}
           visible={popModal}
           onCancel={() => {

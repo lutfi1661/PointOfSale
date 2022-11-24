@@ -39,7 +39,7 @@ const LayoutApp = ({ children }) => {
     { name: "Menu", link: "/", icon: MdOutlineDashboard },
     { name: "Faktur", link: "/bills", icon: RiBillLine },
     { name: "Produk", link: "/products", icon: BiFoodMenu },
-    { name: "Karyawan", link: "/customers", icon: FiUsers },
+    { name: "Karyawan", link: "/employee", icon: FiUsers },
     { name: "Laporan", link: "/reports", icon: TbReport },
     {
       name: "Log Out",
@@ -96,18 +96,18 @@ const LayoutApp = ({ children }) => {
         </div>
       </div>
       <Layout className="site-layout">
-        <Header className="site-layout-background px-2">
+        <Header className="site-layout-background" style={{ padding: 0 }}>
           <HiOutlineMenuAlt2
             size={26}
             className="cursor-pointer inline"
             onClick={() => setOpen(!open)}
           />
-          {/* <div className="cart-items" onClick={() => navigate("/cart")}>
+          <div className="cart-items" onClick={() => navigate("/cart")}>
             <BiCartAlt className="inline" style={{ width: 30, height: 30 }} />
-            <span className="bg-yellow-300 font-bold text-white rounded-full p-2">
+            <span className="bg-green-300 font-bold text-white rounded-full p-2">
               {cartItems.length}
             </span>
-          </div> */}
+          </div>
         </Header>
         {/* CONTENT */}
         <div
