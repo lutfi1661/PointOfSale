@@ -41,13 +41,6 @@ const LayoutApp = ({ children }) => {
     { name: "Produk", link: "/products", icon: BiFoodMenu },
     { name: "Karyawan", link: "/employee", icon: FiUsers },
     { name: "Laporan", link: "/reports", icon: TbReport },
-    {
-      name: "Log Out",
-      link: "/logout",
-      icon: BiLogOut,
-      margin: true,
-      logout: true,
-    },
   ];
 
   const [open, setOpen] = useState(true);
@@ -59,40 +52,73 @@ const LayoutApp = ({ children }) => {
           open ? "w-72" : "w-16"
         } duration-500 text-gray-100 px-4`}
       >
-        <div className="py-3 flex justify-end"></div>
-        <div className="mt-10 flex flex-col gap-4 relative">
-          {menus?.map((menu, i) => (
-            <Link
-              to={menu?.link}
-              key={i}
-              className={` ${menu?.margin && "mt-5"}
-                  group text-white flex items-center text-sm gap-3.5 font-medium p-2 hover:bg-amber-600 hover:text-white rounded-md`}
-            >
-              <div>{React.createElement(menu?.icon, { size: "20" })}</div>
-              <h2
-                style={{
-                  transitionDelay: `${i + 3}00ms`,
+        <div className="py-3 flex center">APLIKASI POS</div>
+        <div className="mt-10 flex flex-col gap-8 relative">
+          <div className="space-y-32">
+            <div>
+              {menus?.map((menu, i) => (
+                <Link
+                  to={menu?.link}
+                  className="group text-white flex items-center text-sm gap-3.5 font-medium p-2 hover:bg-amber-600 hover:text-white rounded-md my-5"
+                >
+                  <div>{React.createElement(menu?.icon, { size: "20" })}</div>
+                  <h2
+                    // style={{
+                    //   transitionDelay: `${i + 3}00ms`,
+                    // }}
+                    className={`text-white whitespace-pre duration-500 ${
+                      !open && "opacity-0 translate-x-28 overflow-hidden"
+                    }`}
+                  >
+                    {menu?.name}
+                  </h2>
+                  <h2
+                    className={`${
+                      open && "hidden"
+                    } absolute left-48 bg-white font-semibold whitespace-pre text-gray-900 rounded-md drop-shadow-lg px-0 py-0 w-0 overflow-hidden group-hover:px-2 group-hover:py-1 group-hover:left-14 group-hover:duration-300 group-hover:w-fit`}
+                    onClick={
+                      menu?.logout
+                        ? `() => {${localStorage.removeItem(
+                            "auth"
+                          )}; ${navigate("/login")};}`
+                        : undefined
+                    }
+                  >
+                    {menu?.name}
+                  </h2>
+                </Link>
+              ))}
+            </div>
+            {/* LOGOUT */}
+            <div>
+              <Link
+                to={"/login"}
+                onClick={() => {
+                  localStorage.removeItem("auth");
+                  navigate("/login");
                 }}
-                className={`text-white whitespace-pre duration-500 ${
-                  !open && "opacity-0 translate-x-28 overflow-hidden"
-                }`}
+                className="group text-white flex items-center text-sm gap-3.5 font-medium p-2 hover:bg-amber-600 hover:text-white rounded-md"
               >
-                {menu?.name}
-              </h2>
-              <h2
-                className={`${
-                  open && "hidden"
-                } absolute left-48 bg-white font-semibold whitespace-pre text-gray-900 rounded-md drop-shadow-lg px-0 py-0 w-0 overflow-hidden group-hover:px-2 group-hover:py-1 group-hover:left-14 group-hover:duration-300 group-hover:w-fit`}
-                onClick={
-                  menu?.logout
-                    ? '() => {localStorage.removeItem("auth"); navigate("/login");'
-                    : ""
-                }
-              >
-                {menu?.name}
-              </h2>
-            </Link>
-          ))}
+                <div>
+                  <BiLogOut size={20} />
+                </div>
+                <h2
+                  className={`text-white whitespace-pre duration-500 ${
+                    !open && "opacity-0 translate-x-28 overflow-hidden"
+                  }`}
+                >
+                  Log Out
+                </h2>
+                <h2
+                  className={`${
+                    open && "hidden"
+                  } absolute left-48 bg-white font-semibold whitespace-pre text-gray-900 rounded-md drop-shadow-lg px-0 py-0 w-0 overflow-hidden group-hover:px-2 group-hover:py-1 group-hover:left-14 group-hover:duration-300 group-hover:w-fit`}
+                >
+                  Log Out
+                </h2>
+              </Link>
+            </div>
+          </div>
         </div>
       </div>
       <Layout className="site-layout">

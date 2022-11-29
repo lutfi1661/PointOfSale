@@ -66,3 +66,78 @@
     </Form>
   </div>
 </div>
+
+<Modal
+        title="Buat Faktur"
+        visible={billPopUp}
+        onCancel={() => setBillPopUp(false)}
+        footer={false}
+      >
+        <Form layout="vertical" onFinish={handlerSubmit}>
+          <FormItem name="customerName" label="Nama Pelanggan">
+            <Input />
+          </FormItem>
+          <FormItem name="customerPhone" label="Nomor Telepon">
+            <Input />
+          </FormItem>
+          <FormItem name="customerAddress" label="Alamat">
+            <Input />
+          </FormItem>
+          <Form.Item name="paymentMethod" label="Metode Pembayaran">
+            <Select>
+              <Select.Option value="cash">Cash</Select.Option>
+              <Select.Option value="paypal">Debit</Select.Option>
+            </Select>
+          </Form.Item>
+          <div className="total">
+            <span>
+              Subtotal:
+              <CurrencyFormat
+                value={subTotal}
+                displayType={"text"}
+                thousandSeparator={"."}
+                decimalSeparator={","}
+                prefix={"Rp"}
+                renderText={(value) => (
+                  <div className="inline">{" " + value}</div>
+                )}
+              />
+            </span>
+            <br />
+            <span>
+              Pajak:
+              <CurrencyFormat
+                value={(subTotal / 100) * 10}
+                displayType={"text"}
+                thousandSeparator={"."}
+                decimalSeparator={","}
+                prefix={"Rp"}
+                renderText={(value) => (
+                  <div className="inline">{" " + value}</div>
+                )}
+              />
+            </span>
+            <h3>
+              Total:
+              <CurrencyFormat
+                value={Number(subTotal) + Number((subTotal / 100) * 10)}
+                displayType={"text"}
+                thousandSeparator={"."}
+                decimalSeparator={","}
+                prefix={"Rp"}
+                renderText={(value) => (
+                  <div className="inline">{" " + value}</div>
+                )}
+              />
+            </h3>
+          </div>
+          {/* <div className="form-btn-add"> */}
+          <button
+            htmlType="submit"
+            className="bg-green-400 text-white font-semibold px-3 py-2 rounded-lg hover:bg-green-500"
+          >
+            Buat Faktur
+          </button>
+          {/* </div> */}
+        </Form>
+      </Modal>

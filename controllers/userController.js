@@ -9,6 +9,7 @@ export const loginController = async (req, res) => {
         const user = await User.findOne({userId, password});
         if(user) {
             res.status(200).send(user);
+            console.log(userId)
         } else {
             res.json({
                 message: "Login Fail",
