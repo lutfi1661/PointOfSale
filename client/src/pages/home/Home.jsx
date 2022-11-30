@@ -4,6 +4,8 @@ import LayoutApp from "../../components/Layout";
 import { Row, Col } from "antd";
 import Product from "../../components/Product";
 import { useDispatch } from "react-redux";
+import { BiDrink } from "react-icons/bi";
+import { CiBurger } from "react-icons/ci";
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -13,11 +15,11 @@ const Home = () => {
   const categories = [
     {
       name: "makanan",
-      imageUrl: "https://cdn-icons-png.flaticon.com/512/857/857755.png",
+      icon: BiDrink,
     },
     {
       name: "minuman",
-      imageUrl: "https://cdn-icons-png.flaticon.com/512/4329/4329534.png",
+      icon: CiBurger,
     },
   ];
 
@@ -43,24 +45,38 @@ const Home = () => {
 
   return (
     <LayoutApp>
-      <div className="category">
-        {categories.map((category) => (
-          <div
-            key={category.name}
-            className={`categoryFlex ${
-              selectedCategory === category.name && "category-active"
-            }`}
-            onClick={() => setSelectedCategory(category.name)}
-          >
-            <img
-              src={category.imageUrl}
-              alt={category.name}
-              height={40}
-              width={40}
-            />
-            <h3 className="categoryName">{category.name}</h3>
-          </div>
-        ))}
+      <div className="flex justify-center justify-items-center mb-10">
+        <ul className="flex flex-wrap -mb-px text-sm font-medium text-center text-gray-500 dark:text-gray-400">
+          {categories.map((category) => (
+            // <div
+            //   key={category.name}
+            //   className={`categoryFlex ${
+            //     selectedCategory === category.name && "category-active"
+            //   }`}
+            //   onClick={() => setSelectedCategory(category.name)}
+            // >
+            //   <img
+            //     src={category.imageUrl}
+            //     alt={category.name}
+            //     height={40}
+            //     width={40}
+            //   />
+            //   <h3 className="categoryName">{category.name}</h3>
+            // </div>
+            <li
+              class={`mr-2 inline-flex p-4 rounded-t-lg cursor-pointer ${
+                selectedCategory === category.name &&
+                "text-amber-500 border-b-2 border-amber-500"
+              }`}
+              onClick={() => setSelectedCategory(category.name)}
+            >
+              <div className="mx-2">
+                {React.createElement(category.icon, { size: "20" })}
+              </div>
+              <span className="capitalize">{category.name}</span>
+            </li>
+          ))}
+        </ul>
       </div>
       <Row>
         {productData
