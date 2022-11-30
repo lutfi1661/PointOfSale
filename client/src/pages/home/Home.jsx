@@ -62,10 +62,11 @@ const Home = () => {
           ))}
         </ul>
       </div>
-      <Row>
+      <Row className="gap-10">
         {productData
           .filter((i) => i.category === selectedCategory)
           .map((product) => (
+            // <Col xs={24} sm={6} md={12} lg={6}>
             <Col>
               <Product key={product.id} product={product} />
             </Col>

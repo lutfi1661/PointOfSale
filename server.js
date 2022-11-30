@@ -7,7 +7,7 @@ import mongoose from 'mongoose';
 import productRouter from './routes/productsRoutes.js';
 import userRouter from './routes/userRoutes.js';
 import billsRouter from './routes/billsRoutes.js';
-//require('colors');
+
 
 dotenv.config();
 

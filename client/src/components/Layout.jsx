@@ -52,8 +52,13 @@ const LayoutApp = ({ children }) => {
           open ? "w-72" : "w-16"
         } duration-500 text-gray-100 px-4`}
       >
-        <div className="py-3 flex center">APLIKASI POS</div>
-        <div className="mt-10 flex flex-col gap-8 relative">
+        <div className="mt-4 flex flex-col gap-8 relative">
+          <div className="p-2 flex font-bold">
+            <div>
+              <img src="logo192.png"></img>
+            </div>
+            <h2>NAEL POS</h2>
+          </div>
           <div className="space-y-32">
             <div>
               {menus?.map((menu, i) => (
