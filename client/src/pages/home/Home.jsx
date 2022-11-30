@@ -66,7 +66,7 @@ const Home = () => {
         {productData
           .filter((i) => i.category === selectedCategory)
           .map((product) => (
-            <Col xs={24} sm={6} md={12} lg={6}>
+            <Col>
               <Product key={product.id} product={product} />
             </Col>
           ))}
