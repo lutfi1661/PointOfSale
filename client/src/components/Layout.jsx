@@ -1,14 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Layout, Menu } from "antd";
-import {
-  MenuUnfoldOutlined,
-  MenuFoldOutlined,
-  HomeOutlined,
-  UserSwitchOutlined,
-  MoneyCollectOutlined,
-  LogoutOutlined,
-  ShoppingCartOutlined,
-} from "@ant-design/icons";
+import { Layout, Badge, Avatar } from "antd";
 import "./layout.css";
 import { Link, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
@@ -19,17 +10,12 @@ import { FiUsers } from "react-icons/fi";
 import { TbReport } from "react-icons/tb";
 import { BiFoodMenu, BiLogOut, BiCartAlt } from "react-icons/bi";
 
-const { Header, Sider, Content } = Layout;
+const { Header } = Layout;
 
 const LayoutApp = ({ children }) => {
-  const { cartItems, loading } = useSelector((state) => state.rootReducer);
+  const { cartItems } = useSelector((state) => state.rootReducer);
 
-  const [collapsed, setCollapsed] = useState(false);
   const navigate = useNavigate();
-
-  const toggle = () => {
-    setCollapsed(!collapsed);
-  };
 
   useEffect(() => {
     localStorage.setItem("cartItems", JSON.stringify(cartItems));
@@ -55,7 +41,7 @@ const LayoutApp = ({ children }) => {
         <div className="mt-4 flex flex-col gap-8 relative">
           <div className="p-2 flex font-bold">
             <div>
-              <img src="logo192.png"></img>
+              <img src="x.png"></img>
             </div>
             <h2>NAEL POS</h2>
           </div>
@@ -135,7 +121,7 @@ const LayoutApp = ({ children }) => {
           />
           <div className="cart-items" onClick={() => navigate("/cart")}>
             <BiCartAlt className="inline" style={{ width: 30, height: 30 }} />
-            <span className="bg-green-300 font-bold text-white rounded-full p-2">
+            <span className="bg-green-400 font-bold text-white rounded-full p-2">
               {cartItems.length}
             </span>
           </div>

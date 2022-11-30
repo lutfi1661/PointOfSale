@@ -1,5 +1,4 @@
 import React from "react";
-import { Button, Card } from "antd";
 import { useDispatch } from "react-redux";
 import CurrencyFormat from "react-currency-format";
 import { BsFillCartPlusFill } from "react-icons/bs";
@@ -14,22 +13,7 @@ const Product = ({ product }) => {
     });
   };
 
-  const { Meta } = Card;
-
   return (
-    // <Card
-    //   hoverable
-    //   style={{ width: 240, marginBottom: 30 }}
-    //   cover={
-    //     <img alt={product.name} src={product.image} style={{ height: 200 }} />
-    //   }
-    // >
-    //   <Meta title={product.name} description={`Rp${product.price}`} />
-    //   <div className="product-btn">
-    //     <Button onClick={() => handlerToCart()}>Add To Cart</Button>
-    //   </div>
-    // </Card>
-
     <div class="bg-white shadow-md hover:scale-105 hover:shadow-xl duration-500 rounded-xl">
       <img
         src={product.image}

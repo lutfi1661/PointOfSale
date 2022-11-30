@@ -8,6 +8,7 @@ import { useDispatch } from "react-redux";
 import Layout from "../../components/Layout";
 import CurrencyFormat from "react-currency-format";
 import { Number, Currency } from "react-intl-number-format";
+import { TbPrinter } from "react-icons/tb";
 
 const Bills = () => {
   const componentRef = useRef();
@@ -59,22 +60,53 @@ const Bills = () => {
     {
       title: "Subtotal",
       dataIndex: "subTotal",
+      render: (subtotal) => (
+        <CurrencyFormat
+          value={subtotal}
+          displayType={"text"}
+          thousandSeparator={"."}
+          decimalSeparator={","}
+          prefix={"Rp"}
+          renderText={(value) => <div>{value}</div>}
+        />
+      ),
     },
     {
       title: "Pajak",
       dataIndex: "tax",
+      render: (tax) => (
+        <CurrencyFormat
+          value={tax}
+          displayType={"text"}
+          thousandSeparator={"."}
+          decimalSeparator={","}
+          prefix={"Rp"}
+          renderText={(value) => <div>{value}</div>}
+        />
+      ),
     },
     {
       title: "Total",
       dataIndex: "totalAmount",
+      render: (totalAmount) => (
+        <CurrencyFormat
+          value={totalAmount}
+          displayType={"text"}
+          thousandSeparator={"."}
+          decimalSeparator={","}
+          prefix={"Rp"}
+          renderText={(value) => <div>{value}</div>}
+        />
+      ),
     },
     {
       title: "Aksi",
       dataIndex: "_id",
+      width: "10%",
       render: (id, record) => (
         <div>
           <button
-            className="bg-yellow-500 hover:bg-yellow-600 text-gray-800 font-semibold py-2 px-4 rounded-full mx-2"
+            className="w-full bg-yellow-500 hover:bg-yellow-600 text-gray-800 font-semibold py-2 px-4 rounded-lg"
             onClick={() => {
               setSelectedBill(record);
               setPopModal(true);
@@ -99,7 +131,7 @@ const Bills = () => {
       {popModal && (
         <Modal
           title="Detail Faktur"
-          width={400}
+          width={800}
           pagination={false}
           visible={popModal}
           onCancel={() => setPopModal(false)}
@@ -151,58 +183,91 @@ const Bills = () => {
               </div>
             </div>
             <div className="cardFooter">
-              <h4>Your Order</h4>
-              {selectedBill.cartItems.map((product) => (
-                <>
-                  <div className="footerCard">
-                    <div className="group">
-                      <span>Item:</span>
-                      <span>
-                        <b>{product.name}</b>
-                      </span>
-                    </div>
-                    <div className="group">
-                      <span>Jumlah:</span>
-                      <span>
-                        <b>{product.quantity}</b>
-                      </span>
-                    </div>
-                    <div className="group">
-                      <span>Harga:</span>
-                      <span>
-                        <b>
-                          <CurrencyFormat
-                            value={product.price}
-                            displayType={"text"}
-                            thousandSeparator={"."}
-                            decimalSeparator={","}
-                            prefix={"Rp"}
-                            renderText={(value) => <div>{value}</div>}
-                          />
-                        </b>
-                      </span>
-                    </div>
-                  </div>
-                </>
-              ))}
+              <h4>Pembelianmu</h4>
+              <div class="overflow-x-auto relative shadow-md sm:rounded-lg">
+                <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+                  <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                    <tr>
+                      <th scope="col" class="py-3 px-6">
+                        Item
+                      </th>
+                      <th scope="col" class="py-3 px-6">
+                        Jumlah
+                      </th>
+                      <th scope="col" class="py-3 px-6">
+                        Harga
+                      </th>
+                      <th scope="col" class="py-3 px-6">
+                        Total
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {selectedBill.cartItems.map((product) => (
+                      <>
+                        <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
+                          <th
+                            scope="row"
+                            class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                          >
+                            {product.name}
+                          </th>
+                          <td class="py-4 px-6">{product.quantity}</td>
+                          <td class="py-4 px-6">
+                            <CurrencyFormat
+                              value={product.price}
+                              displayType={"text"}
+                              thousandSeparator={"."}
+                              decimalSeparator={","}
+                              prefix={"Rp"}
+                              renderText={(value) => <div>{value}</div>}
+                            />
+                          </td>
+                          <td class="py-4 px-6">
+                            <CurrencyFormat
+                              value={product.price * product.quantity}
+                              displayType={"text"}
+                              thousandSeparator={"."}
+                              decimalSeparator={","}
+                              prefix={"Rp"}
+                              renderText={(value) => <div>{value}</div>}
+                            />
+                          </td>
+                        </tr>
+                      </>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
               <div className="footerCardTotal">
                 <div className="group">
-                  <h3>Pajak:</h3>
+                  <h3 className="uppercase">Subtotal</h3>
                   <h3>
-                    <b>
-                      <CurrencyFormat
-                        value={selectedBill.totalAmount}
-                        displayType={"text"}
-                        thousandSeparator={"."}
-                        decimalSeparator={","}
-                        prefix={"Rp"}
-                        renderText={(value) => <div>{value}</div>}
-                      />
-                    </b>
+                    <CurrencyFormat
+                      value={selectedBill.subTotal}
+                      displayType={"text"}
+                      thousandSeparator={"."}
+                      decimalSeparator={","}
+                      prefix={"Rp"}
+                      renderText={(value) => <div>{value}</div>}
+                    />
                   </h3>
                 </div>
                 <div className="group">
-                  <h3>Total:</h3>
+                  <h3 className="uppercase">Pajak (10%)</h3>
+                  <h3>
+                    <CurrencyFormat
+                      value={selectedBill.tax}
+                      displayType={"text"}
+                      thousandSeparator={"."}
+                      decimalSeparator={","}
+                      prefix={"Rp"}
+                      renderText={(value) => <div>{value}</div>}
+                    />
+                  </h3>
+                </div>
+                <div className="group">
+                  <h3 className="uppercase font-bold">Total</h3>
                   <h3>
                     <b>
                       <CurrencyFormat
@@ -218,14 +283,21 @@ const Bills = () => {
                 </div>
               </div>
               <div className="footerThanks">
-                <span>Terima Kasih</span>
+                <span className="uppercase">
+                  Terima Kasih Telah Memesan Produk Kami
+                </span>
               </div>
             </div>
           </div>
           <div className="bills-btn-add">
-            <Button onClick={handlePrint} htmlType="submit" className="add-new">
+            <button
+              className="inline bg-blue-600 text-white p-2 rounded-md right-1"
+              onClick={handlePrint}
+              htmlType="submit"
+            >
+              <TbPrinter />
               Cetak Faktur
-            </Button>
+            </button>
           </div>
         </Modal>
       )}

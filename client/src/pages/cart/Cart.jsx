@@ -1,16 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Layout from "../../components/Layout";
-import {
-  DeleteOutlined,
-  PlusCircleOutlined,
-  MinusCircleOutlined,
-} from "@ant-design/icons";
 import { Button, Form, Input, message, Modal, Select, Table } from "antd";
 import FormItem from "antd/lib/form/FormItem";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import CurrencyFormat from "react-currency-format";
+import { TbCirclePlus, TbCircleMinus } from "react-icons/tb";
 
 const Cart = () => {
   const [subTotal, setSubTotal] = useState(0);
@@ -59,33 +55,56 @@ const Cart = () => {
     {
       title: "Harga",
       dataIndex: "price",
+      render: (price) => (
+        <CurrencyFormat
+          value={price}
+          displayType={"text"}
+          thousandSeparator={"."}
+          decimalSeparator={","}
+          prefix={"Rp"}
+          renderText={(value) => <div>{value}</div>}
+        />
+      ),
     },
     {
       title: "Jumlah Item",
       dataIndex: "_id",
       render: (id, record) => (
-        <div>
-          <MinusCircleOutlined
-            className="cart-minus"
+        <div className="space-x-2">
+          <TbCircleMinus
+            className="inline text-gray-700 cursor-pointer"
+            size={25}
             onClick={() => handlerDecrement(record)}
           />
-          <strong className="cart-quantity">{record.quantity}</strong>
-          <PlusCircleOutlined
-            className="cart-plus"
+          <strong className="inline font-bold text-sm">
+            {record.quantity}
+          </strong>
+          <TbCirclePlus
+            className="inline text-gray-700 cursor-pointer"
+            size={25}
             onClick={() => handlerIncrement(record)}
           />
         </div>
       ),
+      width: "10%",
     },
     {
       title: "Aksi",
       dataIndex: "_id",
       render: (id, record) => (
-        <DeleteOutlined
-          className="cart-action"
+        // <DeleteOutlined
+        //   className="cart-action"
+        //   onClick={() => handlerDelete(record)}
+        // />
+
+        <button
+          className="block w-full bg-red-500 hover:bg-red-600 text-white font-semibold py-1 px-2 rounded-lg"
           onClick={() => handlerDelete(record)}
-        />
+        >
+          Hapus
+        </button>
       ),
+      width: "10%",
     },
   ];
 
