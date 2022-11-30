@@ -4,8 +4,7 @@ import LayoutApp from "../../components/Layout";
 import { Row, Col } from "antd";
 import Product from "../../components/Product";
 import { useDispatch } from "react-redux";
-import { BiDrink } from "react-icons/bi";
-import { CiBurger } from "react-icons/ci";
+import { CiBurger, CiGlass } from "react-icons/ci";
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -15,7 +14,7 @@ const Home = () => {
   const categories = [
     {
       name: "makanan",
-      icon: BiDrink,
+      icon: CiGlass,
     },
     {
       name: "minuman",
@@ -48,21 +47,6 @@ const Home = () => {
       <div className="flex justify-center justify-items-center mb-10">
         <ul className="flex flex-wrap -mb-px text-sm font-medium text-center text-gray-500 dark:text-gray-400">
           {categories.map((category) => (
-            // <div
-            //   key={category.name}
-            //   className={`categoryFlex ${
-            //     selectedCategory === category.name && "category-active"
-            //   }`}
-            //   onClick={() => setSelectedCategory(category.name)}
-            // >
-            //   <img
-            //     src={category.imageUrl}
-            //     alt={category.name}
-            //     height={40}
-            //     width={40}
-            //   />
-            //   <h3 className="categoryName">{category.name}</h3>
-            // </div>
             <li
               class={`mr-2 inline-flex p-4 rounded-t-lg cursor-pointer ${
                 selectedCategory === category.name &&
