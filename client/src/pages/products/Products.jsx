@@ -270,7 +270,9 @@ const Products = () => {
 
   return (
     <LayoutApp>
-      <h1 className="font-bold center">Semua Produk</h1>
+      <h1 className="block font-bold center justify-center w-full">
+        Semua Produk
+      </h1>
       <button
         className="block mt-2 mb-2 p-2 bg-green-500 hover:bg-green-600 text-white font-bold border-none cursor-pointer w-30 rounded-lg"
         onClick={() => setPopModal(true)}

@@ -84,16 +84,7 @@ const Login = () => {
                   </div>
                 </div>
                 <div class="lg:w-6/12 flex items-center lg:rounded-r-lg rounded-b-lg lg:rounded-bl-none bg-[url('https://images.unsplash.com/photo-1559925393-8be0ec4767c8?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8OHx8Y2FmZXxlbnwwfHwwfHw%3D&w=1000&q=80')]">
-                  <div class="text-white px-4 py-6 md:p-12 md:mx-6 brightness-200">
-                    <h4 class="text-xl font-semibold mb-6 text-white">
-                      We are more than just a company
-                    </h4>
-                    <p class="text-sm-white">
-                      A cloud-based online cashier application that can take
-                      your business potential to the highest level, both online
-                      and offline.
-                    </p>
-                  </div>
+                  <div class="text-white px-4 py-6 md:p-12 md:mx-6 brightness-200"></div>
                 </div>
               </div>
             </div>
