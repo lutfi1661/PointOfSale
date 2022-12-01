@@ -8,7 +8,6 @@ import { useDispatch } from "react-redux";
 import Layout from "../../components/Layout";
 import CurrencyFormat from "react-currency-format";
 import { Number, Currency } from "react-intl-number-format";
-import { TbPrinter } from "react-icons/tb";
 
 const Bills = () => {
   const componentRef = useRef();
@@ -139,7 +138,7 @@ const Bills = () => {
         >
           <div className="card" ref={componentRef}>
             <div className="cardHeader">
-              <h2 className="logo">Aplikasi Pos</h2>
+              <h2 className="logo">NAEL POS</h2>
             </div>
             <div className="cardBody">
               <div className="group">
@@ -290,14 +289,9 @@ const Bills = () => {
             </div>
           </div>
           <div className="bills-btn-add">
-            <button
-              className="inline bg-blue-600 text-white p-2 rounded-md right-1"
-              onClick={handlePrint}
-              htmlType="submit"
-            >
-              <TbPrinter />
+            <Button onClick={handlePrint} htmlType="submit" className="add-new">
               Cetak Faktur
-            </button>
+            </Button>
           </div>
         </Modal>
       )}
