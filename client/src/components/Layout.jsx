@@ -25,7 +25,7 @@ const LayoutApp = ({ children }) => {
     { name: "Menu", link: "/", icon: MdOutlineDashboard },
     { name: "Faktur", link: "/bills", icon: RiBillLine },
     { name: "Produk", link: "/products", icon: BiFoodMenu },
-    { name: "Karyawan", link: "/employee", icon: FiUsers },
+    // { name: "Karyawan", link: "/employee", icon: FiUsers },
     { name: "Laporan", link: "/reports", icon: TbReport },
   ];
 
@@ -39,11 +39,8 @@ const LayoutApp = ({ children }) => {
         } duration-500 text-gray-100 px-4`}
       >
         <div className="mt-4 flex flex-col gap-8 relative">
-          <div className="p-2 flex font-bold">
-            <div>
-              <img src="x.png"></img>
-            </div>
-            <h2>NAEL POS</h2>
+          <div className="p-2 flex font-bold justify-center justify-items-center">
+            <p>NAEL POS</p>
           </div>
           <div className="space-y-32">
             <div>
