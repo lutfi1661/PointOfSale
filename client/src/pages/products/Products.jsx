@@ -2,7 +2,18 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import LayoutApp from "../../components/Layout";
-import { Form, Input, Modal, Select, Table, message } from "antd";
+import { UploadOutlined } from "@ant-design/icons";
+import {
+  Button,
+  Form,
+  Input,
+  Modal,
+  Select,
+  Table,
+  message,
+  InputNumber,
+  Upload,
+} from "antd";
 import FormItem from "antd/lib/form/FormItem";
 import CurrencyFormat from "react-currency-format";
 
@@ -31,6 +42,14 @@ const Products = () => {
     }
   };
 
+  const normFile = (e) => {
+    console.log("Upload event:", e);
+    if (Array.isArray(e)) {
+      return e;
+    }
+    return e?.fileList;
+  };
+
   useEffect(() => {
     getAllProducts();
   }, []);
@@ -43,7 +62,7 @@ const Products = () => {
       await axios.post("/api/products/deleteproducts", {
         productId: record._id,
       });
-      message.success("Produk berhasil dihapus");
+      message.success("Product Deleted Successfully!");
       getAllProducts();
       setPopModal(false);
       dispatch({
@@ -64,15 +83,13 @@ const Products = () => {
       dataIndex: "name",
       defaultSortOrder: "descend",
       sorter: (a, b) => a.name.length - b.name.length,
-      width: "30%",
     },
     {
       title: "Gambar",
       dataIndex: "image",
       render: (image, record) => (
-        <img width={100} src={image} alt={record.name} />
+        <img src={image} alt={record.name} height={60} width={60} />
       ),
-      width: "20%",
     },
     {
       title: "Kategori",
@@ -95,52 +112,63 @@ const Products = () => {
       dataIndex: "subcategory",
       filters: [
         {
-          text: "Ayam",
-          value: "ayam",
+          text: "Makanan",
+          children: [
+            {
+              text: "Ayam",
+              value: "ayam",
+            },
+            {
+              text: "Daging",
+              value: "daging",
+            },
+            {
+              text: "Seafood",
+              value: "seafood",
+            },
+            {
+              text: "Nasi",
+              value: "Nasi",
+            },
+            {
+              text: "Cemilan",
+              value: "cemilan",
+            },
+            {
+              text: "Makanan Lain",
+              value: "makanan lain",
+            },
+          ],
         },
         {
-          text: "Daging",
-          value: "daging",
-        },
-        {
-          text: "Seafood",
-          value: "seafood",
-        },
-        {
-          text: "Nasi",
-          value: "Nasi",
-        },
-        {
-          text: "Cemilan",
-          value: "cemilan",
-        },
-        {
-          text: "Makanan Lain",
-          value: "makanan lain",
-        },
-        {
-          text: "Teh",
-          value: "teh",
-        },
-        {
-          text: "Kopi",
-          value: "kopi",
-        },
-        {
-          text: "Susu",
-          value: "susu",
-        },
-        {
-          text: "Jus",
-          value: "jus",
-        },
-        {
-          text: "Minuman lain",
-          value: "minuman lain",
+          text: "Minuman",
+          children: [
+            {
+              text: "Teh",
+              value: "teh",
+            },
+            {
+              text: "Kopi",
+              value: "kopi",
+            },
+            {
+              text: "Susu",
+              value: "susu",
+            },
+            {
+              text: "Jus",
+              value: "jus",
+            },
+            {
+              text: "Minuman lain",
+              value: "minuman lain",
+            },
+          ],
         },
       ],
-      onFilter: (value, record) => record.category.startsWith(value),
+      filterMode: "tree",
       filterSearch: true,
+      onFilter: (value, record) => record.subcategory.includes(value),
     },
     {
       title: "Harga",
@@ -173,17 +201,6 @@ const Products = () => {
       ],
       onFilter: (value, record) => record.status.startsWith(value),
       filterSearch: true,
-      render: (status) => (
-        <div
-          className={`p-1 border-2 text-center ${
-            status === "tersedia"
-              ? "border-green-500 bg-green-100 text-green-600"
-              : "border-red-500 bg-red-100 text-red-600"
-          } rounded-lg`}
-        >
-          {status}
-        </div>
-      ),
     },
     {
       title: "Aksi",
@@ -212,16 +229,21 @@ const Products = () => {
   ];
 
   const handlerSubmit = async (value) => {
-    if (editProduct === null) {
+    if (editProduct === false) {
       try {
         dispatch({
           type: "SHOW_LOADING",
         });
-        const res = await axios.post("/api/products/addproducts", value);
-        message.success("Produk berhasil ditambahkan");
+        console.log("Value", value);
+        const res = await axios.post("/api/products/addproducts", value, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        });
+        console.log("RESPON", res);
+        message.success("Product Added Successfully!");
         getAllProducts();
         setPopModal(false);
-        setEditProduct(null);
         dispatch({
           type: "HIDE_LOADING",
         });
@@ -237,11 +259,21 @@ const Products = () => {
         dispatch({
           type: "SHOW_LOADING",
         });
-        await axios.put("/api/products/updateproducts", {
-          ...value,
-          productId: editProduct._id,
-        });
-        message.success("Produk berhasil diubah!");
+
+        console.log("update", { ...value });
+        await axios.put(
+          "/api/products/updateproducts",
+          {
+            ...value,
+            productId: editProduct._id,
+          },
+          {
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+          }
+        );
+        message.success("Product Updated Successfully!");
         getAllProducts();
         setPopModal(false);
         dispatch({
@@ -257,14 +289,21 @@ const Products = () => {
     }
   };
 
+  const onChange = (value) => {
+    console.log("changed", value);
+  };
+
   return (
     <LayoutApp>
-      <div className="">
-        <h1 className="block font-bold center w-full">Semua Produk</h1>
-      </div>
+      <h1 className="block font-bold center justify-center w-full">
+        Semua Produk
+      </h1>
       <button
-        className="block my-2 p-2 bg-green-500 hover:bg-green-600 text-white font-bold border-none cursor-pointer w-30 rounded-lg right-0"
-        onClick={() => setPopModal(true)}
+        className="block mt-2 mb-2 p-2 bg-green-500 hover:bg-green-600 text-white font-bold border-none cursor-pointer w-30 rounded-lg"
+        onClick={() => {
+          setPopModal(true);
+          setEditProduct(false);
+        }}
       >
         Tambah Item
       </button>
@@ -278,11 +317,11 @@ const Products = () => {
       {popModal && (
         <Modal
           title={`${
-            editProduct !== null ? "Ubah Produk" : "Tambah Produk Baru"
+            editProduct !== false ? "Ubah Produk" : "Tambah Produk Baru"
           }`}
           visible={popModal}
           onCancel={() => {
-            setEditProduct(null);
+            setEditProduct(false);
             setPopModal(false);
           }}
           footer={false}
@@ -292,32 +331,16 @@ const Products = () => {
             initialValues={editProduct}
             onFinish={handlerSubmit}
           >
-            <FormItem
-              name="name"
-              label="Nama"
-              rules={[{ required: true, message: "Nama produk wajib diisi" }]}
-            >
+            <FormItem name="name" label="Nama">
               <Input />
             </FormItem>
-            <Form.Item
-              name="category"
-              label="Kategori"
-              rules={[
-                { required: true, message: "Kategori produk wajib diisi" },
-              ]}
-            >
+            <Form.Item name="category" label="Kategori">
               <Select>
                 <Select.Option value="makanan">Makanan</Select.Option>
                 <Select.Option value="minuman">Minuman</Select.Option>
               </Select>
             </Form.Item>
-            <Form.Item
-              name="subcategory"
-              label="Sub Kategori"
-              rules={[
-                { required: true, message: "Sub kategori produk wajib diisi" },
-              ]}
-            >
+            <Form.Item name="subcategory" label="Sub Kategori">
               <Select>
                 <Select.OptGroup label="Makanan">
                   <Select.Option value="ayam">Ayam</Select.Option>
@@ -340,35 +363,56 @@ const Products = () => {
                 </Select.OptGroup>
               </Select>
             </Form.Item>
-            <Form.Item
-              name="status"
-              label="Status"
-              rules={[{ required: true, message: "Status produk wajib diisi" }]}
-            >
+            <Form.Item name="status" label="Status">
               <Select>
                 <Select.Option value="tersedia">Tersedia</Select.Option>
                 <Select.Option value="habis">Habis</Select.Option>
               </Select>
             </Form.Item>
-            <FormItem
-              name="price"
-              label="Harga"
-              rules={[{ required: true, message: "Harga produk wajib diisi" }]}
-            >
-              <Input />
-            </FormItem>
-            <FormItem
-              name="image"
-              label="Gambar"
-              rules={[{ required: true, message: "Gambar produk wajib diisi" }]}
-            >
+            <FormItem name="price" label="Harga">
               <Input />
             </FormItem>
 
+            {!editProduct && (
+              <Form.Item
+                name="image"
+                label="Upload"
+                getValueFromEvent={normFile}
+                valuePropName="fileList"
+                extra="Format gambar .jpg, .jpeg, dan .png"
+              >
+                <Upload name="image" listType="picture">
+                  <Button icon={<UploadOutlined />}>Click to upload</Button>
+                </Upload>
+              </Form.Item>
+            )}
+
+            {editProduct && (
+              <>
+                <img
+                  src={editProduct.image}
+                  alt={editProduct.name}
+                  height={60}
+                  width={60}
+                />
+                <Form.Item
+                  name="newImage"
+                  label="Upload"
+                  getValueFromEvent={normFile}
+                  valuePropName="fileList"
+                  extra="Kosongkan apabila tidak ingin mengubah gambar!"
+                >
+                  <Upload name="newImage" listType="picture">
+                    <Button icon={<UploadOutlined />}>Click to upload </Button>
+                  </Upload>
+                </Form.Item>
+              </>
+            )}
+
             <div className="form-btn-add">
-              <button htmlType="submit" className="p-2 text-white bg-green-500">
-                Simpan
-              </button>
+              <Button htmlType="submit" className="add-new">
+                {!editProduct ? "Add" : "Update"}
+              </Button>
             </div>
           </Form>
         </Modal>
