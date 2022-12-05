@@ -4,8 +4,8 @@ import mongoose from "mongoose";
 const billsSchema = new mongoose.Schema({
 
     customerName: { type: String, required: true },
-    customerPhone: { type: Number, required: true },
-    customerAddress: { type: String, required: true },
+    customerPhone: { type: String},
+    customerAddress: { type: String},
     subTotal: { type: Number, required: true },
     totalAmount: { type: Number, required: true },
     tax: { type: Number, required: true },

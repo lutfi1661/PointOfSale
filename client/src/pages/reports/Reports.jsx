@@ -65,13 +65,11 @@ const Home = () => {
       <Row className="w-full gap-5 justify-items-center justify-center">
         {productData
           .filter((i) => i.category === selectedCategory)
-          .map((product) =>
-            product.status == "tersedia" ? (
-              <Col>
-                <Product key={product.id} product={product} />
-              </Col>
-            ) : null
-          )}
+          .map((product) => (
+            <Col>
+              <Product key={product.id} product={product} />
+            </Col>
+          ))}
       </Row>
     </LayoutApp>
   );

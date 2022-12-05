@@ -8,6 +8,7 @@ import Login from './pages/login/Login';
 import Register from './pages/register/Register';
 import Bills from './pages/bills/Bills';
 import Customers from './pages/customers/Customers';
+import Reports from './pages/reports/Reports';
 
 function App() {
   return (
@@ -37,6 +38,11 @@ function App() {
             <Route path="/customers" element={
             <ProtectedRouter>
               <Customers />
+            </ProtectedRouter>
+            } />
+            <Route path="/reports" element={
+            <ProtectedRouter>
+              <Reports />
             </ProtectedRouter>
             } />
           <Route path="/login" element={<Login />} />

@@ -38,5 +38,5 @@ const PORT = process.env.PORT || 5000;
 
 //Listen
 app.listen(PORT, () => {
-    console.log(`Serve at running on the port: http://localhost:${PORT}`);
+    console.log(`Server at running on the port: http://localhost:${PORT}`);
 } )

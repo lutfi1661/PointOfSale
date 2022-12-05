@@ -30,6 +30,8 @@ export const rootReducer = (state = initialState, action) => {
             ...state,
             cartItems: state.cartItems.filter((product) => product._id !== action.payload._id),
         };
+        case "DELETE ALL CART":
+        return state;
         default: return state;
     }
 }

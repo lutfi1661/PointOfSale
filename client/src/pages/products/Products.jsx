@@ -2,16 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import LayoutApp from "../../components/Layout";
-import {
-  Button,
-  Form,
-  Input,
-  Modal,
-  Select,
-  Table,
-  message,
-  InputNumber,
-} from "antd";
+import { Form, Input, Modal, Select, Table, message } from "antd";
 import FormItem from "antd/lib/form/FormItem";
 import CurrencyFormat from "react-currency-format";
 
@@ -52,7 +43,7 @@ const Products = () => {
       await axios.post("/api/products/deleteproducts", {
         productId: record._id,
       });
-      message.success("Product Deleted Successfully!");
+      message.success("Produk berhasil dihapus");
       getAllProducts();
       setPopModal(false);
       dispatch({
@@ -73,13 +64,15 @@ const Products = () => {
       dataIndex: "name",
       defaultSortOrder: "descend",
       sorter: (a, b) => a.name.length - b.name.length,
+      width: "30%",
     },
     {
       title: "Gambar",
       dataIndex: "image",
       render: (image, record) => (
-        <img src={image} alt={record.name} height={60} width={60} />
+        <img width={100} src={image} alt={record.name} />
       ),
+      width: "20%",
     },
     {
       title: "Kategori",
@@ -102,63 +95,52 @@ const Products = () => {
       dataIndex: "subcategory",
       filters: [
         {
-          text: "Makanan",
-          children: [
-            {
-              text: "Ayam",
-              value: "ayam",
-            },
-            {
-              text: "Daging",
-              value: "daging",
-            },
-            {
-              text: "Seafood",
-              value: "seafood",
-            },
-            {
-              text: "Nasi",
-              value: "Nasi",
-            },
-            {
-              text: "Cemilan",
-              value: "cemilan",
-            },
-            {
-              text: "Makanan Lain",
-              value: "makanan lain",
-            },
-          ],
+          text: "Ayam",
+          value: "ayam",
         },
         {
-          text: "Minuman",
-          children: [
-            {
-              text: "Teh",
-              value: "teh",
-            },
-            {
-              text: "Kopi",
-              value: "kopi",
-            },
-            {
-              text: "Susu",
-              value: "susu",
-            },
-            {
-              text: "Jus",
-              value: "jus",
-            },
-            {
-              text: "Minuman lain",
-              value: "minuman lain",
-            },
-          ],
+          text: "Daging",
+          value: "daging",
+        },
+        {
+          text: "Seafood",
+          value: "seafood",
+        },
+        {
+          text: "Nasi",
+          value: "Nasi",
+        },
+        {
+          text: "Cemilan",
+          value: "cemilan",
+        },
+        {
+          text: "Makanan Lain",
+          value: "makanan lain",
+        },
+        {
+          text: "Teh",
+          value: "teh",
+        },
+        {
+          text: "Kopi",
+          value: "kopi",
+        },
+        {
+          text: "Susu",
+          value: "susu",
+        },
+        {
+          text: "Jus",
+          value: "jus",
+        },
+        {
+          text: "Minuman lain",
+          value: "minuman lain",
         },
       ],
-      filterMode: "tree",
+      onFilter: (value, record) => record.category.startsWith(value),
       filterSearch: true,
-      onFilter: (value, record) => record.subcategory.includes(value),
     },
     {
       title: "Harga",
@@ -191,6 +173,17 @@ const Products = () => {
       ],
       onFilter: (value, record) => record.status.startsWith(value),
       filterSearch: true,
+      render: (status) => (
+        <div
+          className={`p-1 border-2 text-center ${
+            status === "tersedia"
+              ? "border-green-500 bg-green-100 text-green-600"
+              : "border-red-500 bg-red-100 text-red-600"
+          } rounded-lg`}
+        >
+          {status}
+        </div>
+      ),
     },
     {
       title: "Aksi",
@@ -219,16 +212,16 @@ const Products = () => {
   ];
 
   const handlerSubmit = async (value) => {
-    //console.log(value);
     if (editProduct === null) {
       try {
         dispatch({
           type: "SHOW_LOADING",
         });
         const res = await axios.post("/api/products/addproducts", value);
-        message.success("Product Added Successfully!");
+        message.success("Produk berhasil ditambahkan");
         getAllProducts();
         setPopModal(false);
+        setEditProduct(null);
         dispatch({
           type: "HIDE_LOADING",
         });
@@ -248,7 +241,7 @@ const Products = () => {
           ...value,
           productId: editProduct._id,
         });
-        message.success("Product Updated Successfully!");
+        message.success("Produk berhasil diubah!");
         getAllProducts();
         setPopModal(false);
         dispatch({
@@ -264,17 +257,13 @@ const Products = () => {
     }
   };
 
-  const onChange = (value) => {
-    console.log("changed", value);
-  };
-
   return (
     <LayoutApp>
-      <h1 className="block font-bold center justify-center w-full">
-        Semua Produk
-      </h1>
+      <div className="">
+        <h1 className="block font-bold center w-full">Semua Produk</h1>
+      </div>
       <button
-        className="block mt-2 mb-2 p-2 bg-green-500 hover:bg-green-600 text-white font-bold border-none cursor-pointer w-30 rounded-lg"
+        className="block my-2 p-2 bg-green-500 hover:bg-green-600 text-white font-bold border-none cursor-pointer w-30 rounded-lg right-0"
         onClick={() => setPopModal(true)}
       >
         Tambah Item
@@ -303,16 +292,32 @@ const Products = () => {
             initialValues={editProduct}
             onFinish={handlerSubmit}
           >
-            <FormItem name="name" label="Nama">
+            <FormItem
+              name="name"
+              label="Nama"
+              rules={[{ required: true, message: "Nama produk wajib diisi" }]}
+            >
               <Input />
             </FormItem>
-            <Form.Item name="category" label="Kategori">
+            <Form.Item
+              name="category"
+              label="Kategori"
+              rules={[
+                { required: true, message: "Kategori produk wajib diisi" },
+              ]}
+            >
               <Select>
                 <Select.Option value="makanan">Makanan</Select.Option>
                 <Select.Option value="minuman">Minuman</Select.Option>
               </Select>
             </Form.Item>
-            <Form.Item name="subcategory" label="Sub Kategori">
+            <Form.Item
+              name="subcategory"
+              label="Sub Kategori"
+              rules={[
+                { required: true, message: "Sub kategori produk wajib diisi" },
+              ]}
+            >
               <Select>
                 <Select.OptGroup label="Makanan">
                   <Select.Option value="ayam">Ayam</Select.Option>
@@ -335,23 +340,35 @@ const Products = () => {
                 </Select.OptGroup>
               </Select>
             </Form.Item>
-            <Form.Item name="status" label="Status">
+            <Form.Item
+              name="status"
+              label="Status"
+              rules={[{ required: true, message: "Status produk wajib diisi" }]}
+            >
               <Select>
                 <Select.Option value="tersedia">Tersedia</Select.Option>
                 <Select.Option value="habis">Habis</Select.Option>
               </Select>
             </Form.Item>
-            <FormItem name="price" label="Harga">
+            <FormItem
+              name="price"
+              label="Harga"
+              rules={[{ required: true, message: "Harga produk wajib diisi" }]}
+            >
               <Input />
             </FormItem>
-            <FormItem name="image" label="Gambar">
+            <FormItem
+              name="image"
+              label="Gambar"
+              rules={[{ required: true, message: "Gambar produk wajib diisi" }]}
+            >
               <Input />
             </FormItem>
 
             <div className="form-btn-add">
-              <Button htmlType="submit" className="add-new">
-                Add
-              </Button>
+              <button htmlType="submit" className="p-2 text-white bg-green-500">
+                Simpan
+              </button>
             </div>
           </Form>
         </Modal>
