@@ -4,8 +4,6 @@ import cors from "cors";
 import morgan from "morgan";
 import dotenv from "dotenv";
 import mongoose from "mongoose";
-// import fileUpload from "express-fileupload";
-// import bb from "express-busboy";
 import productRouter from "./routes/productsRoutes.js";
 import userRouter from "./routes/userRoutes.js";
 import billsRouter from "./routes/billsRoutes.js";
@@ -23,19 +21,6 @@ mongoose
   });
 
 const app = express();
-
-// kontol
-// app.use(
-//   fileUpload({
-//     createParentPath: true,
-//   })
-// );
-
-// bb.extend(app, {
-//   upload: true,
-//   path: "./client/public/images/products/",
-//   allowedPath: /./,
-// });
 
 //middlewares
 app.use(cors());

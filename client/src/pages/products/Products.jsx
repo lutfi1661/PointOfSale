@@ -11,11 +11,12 @@ import {
   Select,
   Table,
   message,
-  InputNumber,
   Upload,
+  Image,
 } from "antd";
 import FormItem from "antd/lib/form/FormItem";
 import CurrencyFormat from "react-currency-format";
+import { TbUpload } from "react-icons/tb";
 
 const Products = () => {
   const dispatch = useDispatch();
@@ -83,12 +84,13 @@ const Products = () => {
       dataIndex: "name",
       defaultSortOrder: "descend",
       sorter: (a, b) => a.name.length - b.name.length,
+      width: "30%",
     },
     {
       title: "Gambar",
       dataIndex: "image",
       render: (image, record) => (
-        <img src={image} alt={record.name} height={60} width={60} />
+        <Image src={image} alt={record.name} height={60} width={60} />
       ),
     },
     {
@@ -201,6 +203,18 @@ const Products = () => {
       ],
       onFilter: (value, record) => record.status.startsWith(value),
       filterSearch: true,
+      render: (status) => (
+        <span
+          className={`p-2 border-2 ${
+            status == "tersedia"
+              ? "border-green-500 text-green-500 bg-green-100"
+              : "border-red-500 text-red-500 bg-red-100"
+          } rounded-lg`}
+        >
+          {status}
+        </span>
+      ),
+      width: "10%",
     },
     {
       title: "Aksi",
@@ -380,16 +394,17 @@ const Products = () => {
                 getValueFromEvent={normFile}
                 valuePropName="fileList"
                 extra="Format gambar .jpg, .jpeg, dan .png"
+                status="done"
               >
                 <Upload name="image" listType="picture">
-                  <Button icon={<UploadOutlined />}>Click to upload</Button>
+                  <Button icon={<TbUpload />}>Click to upload</Button>
                 </Upload>
               </Form.Item>
             )}
 
             {editProduct && (
               <>
-                <img
+                <Image
                   src={editProduct.image}
                   alt={editProduct.name}
                   height={60}
@@ -402,8 +417,14 @@ const Products = () => {
                   valuePropName="fileList"
                   extra="Kosongkan apabila tidak ingin mengubah gambar!"
                 >
-                  <Upload name="newImage" listType="picture">
-                    <Button icon={<UploadOutlined />}>Click to upload </Button>
+                  <Upload
+                    name="newImage"
+                    listType="picture"
+                    className="border-4"
+                  >
+                    <Button icon={<TbUpload size={10} />}>
+                      Click to upload{" "}
+                    </Button>
                   </Upload>
                 </Form.Item>
               </>
