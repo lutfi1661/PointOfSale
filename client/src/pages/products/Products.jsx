@@ -13,6 +13,7 @@ import {
   message,
   Upload,
   Image,
+  InputNumber,
 } from "antd";
 import FormItem from "antd/lib/form/FormItem";
 import CurrencyFormat from "react-currency-format";
@@ -206,7 +207,7 @@ const Products = () => {
       render: (status) => (
         <span
           className={`p-2 border-2 ${
-            status == "tersedia"
+            status === "tersedia"
               ? "border-green-500 text-green-500 bg-green-100"
               : "border-red-500 text-red-500 bg-red-100"
           } rounded-lg`}
@@ -345,16 +346,43 @@ const Products = () => {
             initialValues={editProduct}
             onFinish={handlerSubmit}
           >
-            <FormItem name="name" label="Nama">
+            <FormItem
+              name="name"
+              label="Nama"
+              rules={[
+                {
+                  required: true,
+                  message: "Nama produk wajib diisi!",
+                },
+              ]}
+            >
               <Input />
             </FormItem>
-            <Form.Item name="category" label="Kategori">
-              <Select>
+            <Form.Item
+              name="category"
+              label="Kategori"
+              rules={[
+                {
+                  required: true,
+                  message: "Kategori produk wajib diisi!",
+                },
+              ]}
+            >
+              <Select className="py-1.5 px-3 w-full ring-1 ring-gray-300 outline-1 outline-amber-500 rounded-sm">
                 <Select.Option value="makanan">Makanan</Select.Option>
                 <Select.Option value="minuman">Minuman</Select.Option>
               </Select>
             </Form.Item>
-            <Form.Item name="subcategory" label="Sub Kategori">
+            <Form.Item
+              name="subcategory"
+              label="Sub Kategori"
+              rules={[
+                {
+                  required: true,
+                  message: "Sub kategori produk wajib diisi!",
+                },
+              ]}
+            >
               <Select>
                 <Select.OptGroup label="Makanan">
                   <Select.Option value="ayam">Ayam</Select.Option>
@@ -377,27 +405,68 @@ const Products = () => {
                 </Select.OptGroup>
               </Select>
             </Form.Item>
-            <Form.Item name="status" label="Status">
+            <Form.Item
+              name="status"
+              label="Status"
+              rules={[
+                {
+                  required: true,
+                  message: "Status produk wajib diisi!",
+                },
+              ]}
+            >
               <Select>
                 <Select.Option value="tersedia">Tersedia</Select.Option>
                 <Select.Option value="habis">Habis</Select.Option>
               </Select>
             </Form.Item>
-            <FormItem name="price" label="Harga">
-              <Input />
+            <FormItem
+              name="price"
+              label="Harga"
+              rules={[
+                {
+                  required: true,
+                  message: "Harga produk wajib diisi!",
+                },
+              ]}
+            >
+              <InputNumber
+                prefix="Rp"
+                style={{ width: "100%" }}
+                formatter={(value) =>
+                  `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+                }
+                parser={(value) => value.replace(/\$\s?|(,*)/g, "")}
+                min={0}
+                onChange={onChange}
+              />
             </FormItem>
 
             {!editProduct && (
               <Form.Item
                 name="image"
-                label="Upload"
+                label="Gambar"
                 getValueFromEvent={normFile}
                 valuePropName="fileList"
-                extra="Format gambar .jpg, .jpeg, dan .png"
+                extra="Format file .jpg, .jpeg, dan .png"
                 status="done"
+                rules={[
+                  {
+                    required: true,
+                    message: "Gambar produk wajib diisi!",
+                  },
+                ]}
               >
-                <Upload name="image" listType="picture">
-                  <Button icon={<TbUpload />}>Click to upload</Button>
+                <Upload
+                  name="image"
+                  listType="picture"
+                  defaultFileList={editProduct.name}
+                  status="done"
+                >
+                  <button className="p-2 bg-amber-500 font-semibold text-white rounded-lg hover:bg-amber-600">
+                    <TbUpload size={20} className="inline mr-2 mb-1" />
+                    Unggah File
+                  </button>
                 </Upload>
               </Form.Item>
             )}
@@ -415,15 +484,18 @@ const Products = () => {
                   label="Upload"
                   getValueFromEvent={normFile}
                   valuePropName="fileList"
-                  extra="Kosongkan apabila tidak ingin mengubah gambar!"
+                  extra={editProduct.name}
+                  rules={[
+                    {
+                      required: true,
+                      message: "Gambar produk wajib diisi!",
+                    },
+                  ]}
                 >
-                  <Upload
-                    name="newImage"
-                    listType="picture"
-                    className="border-4"
-                  >
-                    <Button icon={<TbUpload size={10} />}>
-                      Click to upload{" "}
+                  <Upload name="newImage" listType="picture" className="py-5">
+                    <Button>
+                      <TbUpload size={20} className="inline mr-2 mb-1" />
+                      Unggah File
                     </Button>
                   </Upload>
                 </Form.Item>
@@ -431,8 +503,8 @@ const Products = () => {
             )}
 
             <div className="form-btn-add">
-              <Button htmlType="submit" className="add-new">
-                {!editProduct ? "Add" : "Update"}
+              <Button type="primary" htmlType="submit">
+                {!editProduct ? "Tambah" : "Ubah"}
               </Button>
             </div>
           </Form>

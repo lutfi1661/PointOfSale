@@ -22,7 +22,7 @@ mongoose
 
 const app = express();
 
-//middlewares
+// Middleware
 app.use(cors());
 app.use(express.json());
 
@@ -30,15 +30,15 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(morgan("dev"));
 
-//routes
+// Routes
 app.use("/api/products/", productRouter);
 app.use("/api/users/", userRouter);
 app.use("/api/bills/", billsRouter);
 
-//Create Port
+// Create Port
 const PORT = process.env.PORT || 5000;
 
-//Listen
+// Listen
 app.listen(PORT, () => {
   console.log(`Serve at running on the port: http://localhost:${PORT}`);
 });

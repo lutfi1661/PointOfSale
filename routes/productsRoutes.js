@@ -5,9 +5,9 @@ import {
   updateProductController,
   deleteProductController,
 } from "../controllers/productController.js";
-
 import multer from "multer";
 
+// Saving Local Storage
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, "./client/public/images/products");
