@@ -456,12 +456,7 @@ const Products = () => {
                   },
                 ]}
               >
-                <Upload
-                  name="image"
-                  listType="picture"
-                  defaultFileList={editProduct.name}
-                  status="done"
-                >
+                <Upload name="image" listType="picture">
                   <button className="p-2 bg-amber-500 font-semibold text-white rounded-lg hover:bg-amber-600">
                     <TbUpload size={20} className="inline mr-2 mb-1" />
                     Unggah File
@@ -485,11 +480,11 @@ const Products = () => {
                   valuePropName="fileList"
                   extra={editProduct.name}
                 >
-                  <Upload name="newImage" listType="picture" className="py-5">
-                    <Button>
+                  <Upload name="newImage" listType="picture">
+                    <button className="p-2 bg-amber-500 font-semibold text-white rounded-lg hover:bg-amber-600">
                       <TbUpload size={20} className="inline mr-2 mb-1" />
                       Unggah File
-                    </Button>
+                    </button>
                   </Upload>
                 </Form.Item>
               </>

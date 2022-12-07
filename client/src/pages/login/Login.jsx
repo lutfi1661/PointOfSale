@@ -1,4 +1,4 @@
-import { Button, Form, Input, message } from "antd";
+import { Form, message } from "antd";
 import FormItem from "antd/lib/form/FormItem";
 import axios from "axios";
 import React, { useEffect } from "react";
@@ -86,7 +86,7 @@ const Login = () => {
                     </Form>
                   </div>
                 </div>
-                <div class="lg:w-6/12 flex items-center lg:rounded-r-lg rounded-b-lg lg:rounded-bl-none bg-[url('https://images.unsplash.com/photo-1559925393-8be0ec4767c8?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8OHx8Y2FmZXxlbnwwfHwwfHw%3D&w=1000&q=80')]">
+                <div class="lg:w-6/12 flex items-center lg:rounded-r-lg rounded-b-lg lg:rounded-bl-none bg-cover bg-[url('https://img.freepik.com/premium-vector/people-cozy-cafe-coffee-shop-interior-customers-waitress-vector-illustration_169479-422.jpg?w=2000')]">
                   <div class="text-white px-4 py-6 md:p-12 md:mx-6 brightness-200"></div>
                 </div>
               </div>
