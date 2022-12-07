@@ -51,31 +51,33 @@ const Login = () => {
                     <div class="text-center">
                       <img
                         class="mx-auto w-48"
-                        src="https://www.freepnglogos.com/uploads/coffee-logo-png/coffee-logo-design-creative-idea-logo-elements-2.png"
+                        src="images/pos.png"
                         alt="logo"
                       />
                       <h4 class="text-xl font-semibold mt-1 mb-12 pb-1">
-                        POS Application
+                        Aplikasi Kasir
                       </h4>
                     </div>
                     <Form layout="vertical" onFinish={handlerSubmit}>
-                      <FormItem name="userId" label="User ID">
-                        <Input class="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-orange-700 focus:outline-none" />
+                      <FormItem name="userId" label="Username">
+                        <input
+                          type="text"
+                          class="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-orange-700 focus:outline-none"
+                        />
                       </FormItem>
                       <FormItem name="password" label="Password">
-                        <Input
+                        <input
                           class="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-orange-700 focus:outline-none"
                           type="password"
                         />
                       </FormItem>
                       <div className="form-btn-add">
-                        <Button
-                          class="bg-amber-700 inline-block px-6 py-2.5 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-amber-800 hover:shadow-lg focus:shadow-lg focus:outline-none focus:ring-0 active:shadow-lg transition duration-700 ease-in-out w-full mb-3"
+                        <button
+                          className="bg-amber-600 inline-block px-6 py-2.5 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-amber-800 hover:shadow-lg focus:shadow-lg focus:outline-none focus:ring-0 active:shadow-lg transition duration-700 ease-in-out w-full mb-3"
                           htmlType="submit"
-                          className="add-new"
                         >
                           Login
-                        </Button>
+                        </button>
                         <a class="text-gray-500 hover:text-orange-600" href="#">
                           I forgot my password
                         </a>

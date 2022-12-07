@@ -92,11 +92,6 @@ const Cart = () => {
       title: "Aksi",
       dataIndex: "_id",
       render: (id, record) => (
-        // <DeleteOutlined
-        //   className="cart-action"
-        //   onClick={() => handlerDelete(record)}
-        // />
-
         <button
           className="block w-full bg-red-500 hover:bg-red-600 text-white font-semibold py-1 px-2 rounded-lg"
           onClick={() => handlerDelete(record)}
@@ -132,7 +127,7 @@ const Cart = () => {
         userId: JSON.parse(localStorage.getItem("auth"))._id,
       };
       await axios.post("/api/bills/addbills", newObject);
-      message.success("Bill Generated!");
+      message.success("Transaksi Berhasil Dibuat!");
       navigate("/bills");
     } catch (error) {
       message.error("Error!");
@@ -161,11 +156,11 @@ const Cart = () => {
           onClick={() => setBillPopUp(true)}
           className="bg-emerald-500 text-white font-semibold px-3 py-2 rounded-lg hover:bg-emerald-600"
         >
-          Buat Struk
+          Buat Transaksi
         </button>
       </div>
       <Modal
-        title="Buat Struk"
+        title="Buat Transaksi"
         visible={billPopUp}
         onCancel={() => setBillPopUp(false)}
         footer={false}
@@ -246,14 +241,12 @@ const Cart = () => {
               />
             </h3>
           </div>
-          {/* <div className="form-btn-add"> */}
           <button
             htmlType="submit"
             className="bg-emerald-500 text-white font-semibold px-3 py-2 rounded-lg hover:bg-emerald-600"
           >
-            Buat Faktur
+            Buat Transaksi
           </button>
-          {/* </div> */}
         </Form>
       </Modal>
     </Layout>

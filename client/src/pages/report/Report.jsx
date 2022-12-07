@@ -87,7 +87,6 @@ const Customers = () => {
           </Col>
         </Row>
       </div>
-      <Table dataSource={billsData} columns={columns} bordered />
     </Layout>
   );
 };
