@@ -105,6 +105,7 @@ const Bills = () => {
           <button
             className="w-full bg-yellow-500 hover:bg-yellow-600 text-gray-800 font-semibold py-2 px-4 rounded-lg"
             onClick={() => {
+              // console.log(record);
               setSelectedBill(record);
               setPopModal(true);
             }}
@@ -134,7 +135,7 @@ const Bills = () => {
           onCancel={() => setPopModal(false)}
           footer={false}
         >
-          <div className="card" ref={componentRef}>
+          <div className="card p-10" ref={componentRef}>
             <div className="cardHeader">
               <h2 className="logo">NAEL POS</h2>
             </div>
