@@ -40,7 +40,8 @@ const LayoutApp = ({ children }) => {
       >
         <div className="mt-4 flex flex-col gap-8 relative">
           <div className="p-2 flex justify-center justify-items-center">
-            <span className="font-bold">NAEL </span>POS
+            <span className="font-bold">NAEL{`\n`}</span>
+            <span>POS</span>
           </div>
           <div className="space-y-32">
             <div>
@@ -51,9 +52,6 @@ const LayoutApp = ({ children }) => {
                 >
                   <div>{React.createElement(menu?.icon, { size: "20" })}</div>
                   <h2
-                    // style={{
-                    //   transitionDelay: `${i + 3}00ms`,
-                    // }}
                     className={`text-white whitespace-pre duration-500 ${
                       !open && "opacity-0 translate-x-28 overflow-hidden"
                     }`}

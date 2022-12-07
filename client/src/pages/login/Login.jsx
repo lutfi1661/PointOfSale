@@ -20,14 +20,14 @@ const Login = () => {
         type: "HIDE_LOADING",
       });
       console.log(value);
-      message.success("Login Berhasil");
+      message.success("Berhasil Login!");
       localStorage.setItem("auth", JSON.stringify(res.data));
       navigate("/");
     } catch (error) {
       dispatch({
         type: "HIDE_LOADING",
       });
-      message.error("Error!");
+      message.error("Gagal Login!");
       console.log(error);
     }
   };
@@ -78,9 +78,9 @@ const Login = () => {
                         >
                           Login
                         </button>
-                        <a class="text-gray-500 hover:text-orange-600" href="#">
+                        {/* <a class="text-gray-500 hover:text-orange-600" href="#">
                           I forgot my password
-                        </a>
+                        </a> */}
                         <br></br>
                       </div>
                     </Form>

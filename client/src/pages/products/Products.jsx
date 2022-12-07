@@ -309,11 +309,9 @@ const Products = () => {
 
   return (
     <LayoutApp>
-      <h1 className="block font-bold center justify-center w-full">
-        Semua Produk
-      </h1>
+      <h1 className="block font-semibold">Semua Produk</h1>
       <button
-        className="block mt-2 mb-2 p-2 bg-emerald-500 hover:bg-emerald-600 text-white font-semibold border-none cursor-pointer w-30 rounded-lg right-0"
+        className="relative mt-2 mb-2 p-2 bg-emerald-500 hover:bg-emerald-600 text-white font-semibold border-none cursor-pointer w-30 rounded-lg right-0"
         onClick={() => {
           setPopModal(true);
           setEditProduct(false);
@@ -339,6 +337,7 @@ const Products = () => {
             setPopModal(false);
           }}
           footer={false}
+          style={{ borderRadius: "100px" }}
         >
           <Form
             layout="vertical"
@@ -467,25 +466,29 @@ const Products = () => {
 
             {editProduct && (
               <>
-                <Image
-                  src={editProduct.image}
-                  alt={editProduct.name}
-                  height={60}
-                  width={60}
-                />
                 <Form.Item
                   name="newImage"
-                  label="Upload"
+                  label="Gambar"
                   getValueFromEvent={normFile}
                   valuePropName="fileList"
                   extra={editProduct.name}
                 >
                   <Upload name="newImage" listType="picture">
-                    <button className="p-2 bg-amber-500 font-semibold text-white rounded-lg hover:bg-amber-600">
+                    <Button
+                      type="primary"
+                      className="p-2 bg-amber-500 font-semibold text-white rounded-lg hover:bg-amber-600"
+                    >
                       <TbUpload size={20} className="inline mr-2 mb-1" />
                       Unggah File
-                    </button>
+                    </Button>
                   </Upload>
+                  <img
+                    src={editProduct.image}
+                    alt={editProduct.name}
+                    height={100}
+                    width={100}
+                    className="mt-2"
+                  />
                 </Form.Item>
               </>
             )}
