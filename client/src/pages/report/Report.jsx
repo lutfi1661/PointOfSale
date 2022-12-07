@@ -54,7 +54,7 @@ const Customers = () => {
 
   return (
     <Layout>
-      <h2>All Customers </h2>
+      <h2>Semua Laporan </h2>
       <div className="site-statistic-demo-card">
         <Row gutter={16}>
           <Col span={12}>
@@ -87,7 +87,6 @@ const Customers = () => {
           </Col>
         </Row>
       </div>
-      <Table dataSource={billsData} columns={columns} bordered />
     </Layout>
   );
 };

@@ -7,9 +7,8 @@ import { HiOutlineMenuAlt2 } from "react-icons/hi";
 import { MdOutlineDashboard } from "react-icons/md";
 import { RiBillLine } from "react-icons/ri";
 import { FiUsers } from "react-icons/fi";
-import { TbReport } from "react-icons/tb";
 import { BiFoodMenu, BiLogOut, BiCartAlt } from "react-icons/bi";
-import { AiOutlineLineChart, AiOutlineBarChart } from "react-icons/ai";
+import { AiOutlineBarChart } from "react-icons/ai";
 
 const { Header } = Layout;
 
@@ -40,8 +39,9 @@ const LayoutApp = ({ children }) => {
         } duration-500 text-gray-100 px-4`}
       >
         <div className="mt-4 flex flex-col gap-8 relative">
-          <div className="p-2 flex font-bold justify-center justify-items-center">
-            <p>NAEL POS</p>
+          <div className="p-2 flex justify-center justify-items-center">
+            <span className="font-bold">NAEL{`\n`}</span>
+            <span>POS</span>
           </div>
           <div className="space-y-32">
             <div>
@@ -52,9 +52,6 @@ const LayoutApp = ({ children }) => {
                 >
                   <div>{React.createElement(menu?.icon, { size: "20" })}</div>
                   <h2
-                    // style={{
-                    //   transitionDelay: `${i + 3}00ms`,
-                    // }}
                     className={`text-white whitespace-pre duration-500 ${
                       !open && "opacity-0 translate-x-28 overflow-hidden"
                     }`}
@@ -155,6 +152,27 @@ const LayoutApp = ({ children }) => {
         >
           {children}
         </div>
+        {/* <div className="bottom-10 right-10 fixed cursor-pointer drop-shadow-xl">
+          <Badge
+            status="success"
+            count={`${cartItems.length}`}
+            offset={[0, 2]}
+            className="p-2"
+          >
+            <Avatar
+              size="large"
+              style={{
+                backgroundColor: "white",
+                verticalAlign: "middle",
+                color: "grey",
+                width: "50px",
+                height: "50px",
+              }}
+            >
+              <BiCartAlt size={30} style={{ marginTop: "10px" }} />
+            </Avatar>
+          </Badge>
+        </div> */}
       </Layout>
     </section>
   );

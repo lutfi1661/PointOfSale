@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 const billsSchema = new mongoose.Schema({
 
     customerName: { type: String, required: true },
-    customerPhone: { type: Number},
+    customerPhone: { type: String},
     customerAddress: { type: String},
     subTotal: { type: Number, required: true },
     totalAmount: { type: Number, required: true },
