@@ -1,6 +1,5 @@
 import mongoose from "mongoose";
 
-//for create table into db
 const productSchema = new mongoose.Schema({
 
     name: { type: String, required: true },
@@ -10,7 +9,6 @@ const productSchema = new mongoose.Schema({
     status: { type: String, required: true},
     image: { type: String, required: true},
 }, {
-    //for date
     timestamps: true
 });
 

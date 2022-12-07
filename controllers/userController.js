@@ -1,7 +1,5 @@
 import User from "../models/userModel.js";
 
-
-//for login
 export const loginController = async (req, res) => {
     try {
 
@@ -22,7 +20,6 @@ export const loginController = async (req, res) => {
     }
 }
 
-//for register
 export const registerController = async (req, res) => {
 
     try {
