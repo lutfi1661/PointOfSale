@@ -3,11 +3,9 @@ import axios from "axios";
 import React, { useEffect, useState, useRef } from "react";
 import ReactToPrint from "react-to-print";
 import { useReactToPrint } from "react-to-print";
-import { EyeOutlined } from "@ant-design/icons";
 import { useDispatch } from "react-redux";
 import Layout from "../../components/Layout";
 import CurrencyFormat from "react-currency-format";
-import { Number, Currency } from "react-intl-number-format";
 
 const Bills = () => {
   const componentRef = useRef();
@@ -41,11 +39,11 @@ const Bills = () => {
 
   const columns = [
     {
-      title: "ID",
+      title: "ID Transaksi",
       dataIndex: "_id",
     },
     {
-      title: "Nama Customer",
+      title: "Nama Pelanggan",
       dataIndex: "customerName",
     },
     {
