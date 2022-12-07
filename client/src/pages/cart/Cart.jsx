@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Layout from "../../components/Layout";
-import { Form, Input, message, Modal, Select, Table } from "antd";
+import { Button, Form, Input, message, Modal, Select, Table } from "antd";
 import FormItem from "antd/lib/form/FormItem";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -92,6 +92,11 @@ const Cart = () => {
       title: "Aksi",
       dataIndex: "_id",
       render: (id, record) => (
+        // <DeleteOutlined
+        //   className="cart-action"
+        //   onClick={() => handlerDelete(record)}
+        // />
+
         <button
           className="block w-full bg-red-500 hover:bg-red-600 text-white font-semibold py-1 px-2 rounded-lg"
           onClick={() => handlerDelete(record)}
@@ -127,7 +132,7 @@ const Cart = () => {
         userId: JSON.parse(localStorage.getItem("auth"))._id,
       };
       await axios.post("/api/bills/addbills", newObject);
-      message.success("Struk berhasil dibuat!");
+      message.success("Bill Generated!");
       navigate("/bills");
     } catch (error) {
       message.error("Error!");
@@ -154,13 +159,13 @@ const Cart = () => {
         </h2>
         <button
           onClick={() => setBillPopUp(true)}
-          className=" bg-green-400 text-white font-semibold px-3 py-2 rounded-lg hover:bg-green-500"
+          className="bg-emerald-500 text-white font-semibold px-3 py-2 rounded-lg hover:bg-emerald-600"
         >
-          Buat Faktur
+          Buat Struk
         </button>
       </div>
       <Modal
-        title="Buat Faktur"
+        title="Buat Struk"
         visible={billPopUp}
         onCancel={() => setBillPopUp(false)}
         footer={false}
@@ -169,7 +174,12 @@ const Cart = () => {
           <FormItem
             name="customerName"
             label="Nama Pelanggan"
-            rules={[{ required: true, message: "Nama pelanggan wajib diisi" }]}
+            rules={[
+              {
+                required: true,
+                message: "Nama pelanggan wajib diisi!",
+              },
+            ]}
           >
             <Input />
           </FormItem>
@@ -183,7 +193,10 @@ const Cart = () => {
             name="paymentMethod"
             label="Metode Pembayaran"
             rules={[
-              { required: true, message: "Metode pembayaran wajib diisi" },
+              {
+                required: true,
+                message: "Metode pembayaran wajib diisi!",
+              },
             ]}
           >
             <Select>
@@ -193,7 +206,7 @@ const Cart = () => {
           </Form.Item>
           <div className="total">
             <span>
-              Subtotal:
+              Subtotal :
               <CurrencyFormat
                 value={subTotal}
                 displayType={"text"}
@@ -207,7 +220,7 @@ const Cart = () => {
             </span>
             <br />
             <span>
-              Pajak:
+              Pajak :
               <CurrencyFormat
                 value={(subTotal / 100) * 10}
                 displayType={"text"}
@@ -220,7 +233,7 @@ const Cart = () => {
               />
             </span>
             <h3>
-              Total:
+              Total :
               <CurrencyFormat
                 value={Number(subTotal) + Number((subTotal / 100) * 10)}
                 displayType={"text"}
@@ -233,12 +246,14 @@ const Cart = () => {
               />
             </h3>
           </div>
+          {/* <div className="form-btn-add"> */}
           <button
             htmlType="submit"
-            className="block bg-green-400 text-white font-semibold px-3 py-2 rounded-lg hover:bg-green-500"
+            className="bg-emerald-500 text-white font-semibold px-3 py-2 rounded-lg hover:bg-emerald-600"
           >
-            Buat Struk
+            Buat Faktur
           </button>
+          {/* </div> */}
         </Form>
       </Modal>
     </Layout>

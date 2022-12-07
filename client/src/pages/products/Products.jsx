@@ -2,7 +2,6 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import LayoutApp from "../../components/Layout";
-import { UploadOutlined } from "@ant-design/icons";
 import {
   Button,
   Form,
@@ -64,7 +63,7 @@ const Products = () => {
       await axios.post("/api/products/deleteproducts", {
         productId: record._id,
       });
-      message.success("Product Deleted Successfully!");
+      message.success("Produk Berhasil Dihapus");
       getAllProducts();
       setPopModal(false);
       dispatch({
@@ -204,6 +203,7 @@ const Products = () => {
       ],
       onFilter: (value, record) => record.status.startsWith(value),
       filterSearch: true,
+      width: "10%",
       render: (status) => (
         <span
           className={`p-2 border-2 ${
@@ -215,7 +215,6 @@ const Products = () => {
           {status}
         </span>
       ),
-      width: "10%",
     },
     {
       title: "Aksi",
@@ -256,7 +255,7 @@ const Products = () => {
           },
         });
         console.log("RESPON", res);
-        message.success("Product Added Successfully!");
+        message.success("Produk Berhasil Ditambahkan");
         getAllProducts();
         setPopModal(false);
         dispatch({
@@ -288,7 +287,7 @@ const Products = () => {
             },
           }
         );
-        message.success("Product Updated Successfully!");
+        message.success("Produk Berhasil Diubah");
         getAllProducts();
         setPopModal(false);
         dispatch({
@@ -314,13 +313,13 @@ const Products = () => {
         Semua Produk
       </h1>
       <button
-        className="block mt-2 mb-2 p-2 bg-green-500 hover:bg-green-600 text-white font-bold border-none cursor-pointer w-30 rounded-lg"
+        className="block mt-2 mb-2 p-2 bg-emerald-500 hover:bg-emerald-600 text-white font-semibold border-none cursor-pointer w-30 rounded-lg right-0"
         onClick={() => {
           setPopModal(true);
           setEditProduct(false);
         }}
       >
-        Tambah Item
+        Tambah Produk
       </button>
       <Table
         dataSource={productData}
@@ -368,7 +367,7 @@ const Products = () => {
                 },
               ]}
             >
-              <Select className="py-1.5 px-3 w-full ring-1 ring-gray-300 outline-1 outline-amber-500 rounded-sm">
+              <Select>
                 <Select.Option value="makanan">Makanan</Select.Option>
                 <Select.Option value="minuman">Minuman</Select.Option>
               </Select>
@@ -485,12 +484,6 @@ const Products = () => {
                   getValueFromEvent={normFile}
                   valuePropName="fileList"
                   extra={editProduct.name}
-                  rules={[
-                    {
-                      required: true,
-                      message: "Gambar produk wajib diisi!",
-                    },
-                  ]}
                 >
                   <Upload name="newImage" listType="picture" className="py-5">
                     <Button>
@@ -503,9 +496,12 @@ const Products = () => {
             )}
 
             <div className="form-btn-add">
-              <Button type="primary" htmlType="submit">
-                {!editProduct ? "Tambah" : "Ubah"}
-              </Button>
+              <button
+                htmlType="submit"
+                className="p-2 font-semibold text-white bg-orange-500 hover:bg-green-700 rounded-lg"
+              >
+                Simpan
+              </button>
             </div>
           </Form>
         </Modal>

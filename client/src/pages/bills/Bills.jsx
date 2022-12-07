@@ -3,9 +3,11 @@ import axios from "axios";
 import React, { useEffect, useState, useRef } from "react";
 import ReactToPrint from "react-to-print";
 import { useReactToPrint } from "react-to-print";
+import { EyeOutlined } from "@ant-design/icons";
 import { useDispatch } from "react-redux";
 import Layout from "../../components/Layout";
 import CurrencyFormat from "react-currency-format";
+import { Number, Currency } from "react-intl-number-format";
 
 const Bills = () => {
   const componentRef = useRef();
@@ -116,14 +118,13 @@ const Bills = () => {
     },
   ];
 
-  //Print the Bills
   const handlePrint = useReactToPrint({
     content: () => componentRef.current,
   });
 
   return (
     <Layout>
-      <h2>Semua Faktur </h2>
+      <h2>Semua Transaksi </h2>
       <Table dataSource={billsData} columns={columns} bordered />
 
       {popModal && (
@@ -135,7 +136,7 @@ const Bills = () => {
           onCancel={() => setPopModal(false)}
           footer={false}
         >
-          <div className="card p-4" ref={componentRef}>
+          <div className="card" ref={componentRef}>
             <div className="cardHeader">
               <h2 className="logo">NAEL POS</h2>
             </div>

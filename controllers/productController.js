@@ -21,11 +21,11 @@ export const addProductController = async (req, res, next) => {
         message: "No file uploaded",
       });
     } else {
-    //   console.error("Ini error");
-    //   console.info();
+      // console.error("Ini Error");
+      // console.info();
 
       const body = Object.assign({}, req.body);
-    //   console.log("body");
+      // console.log("body");
 
       const newData = {
         name: body.name,
@@ -48,7 +48,7 @@ export const addProductController = async (req, res, next) => {
 //for update
 export const updateProductController = async (req, res) => {
   try {
-    // console.log("body update", req.body);
+    // console.log("update", req.body);
     const body = Object.assign({}, req.body);
 
     const data = {

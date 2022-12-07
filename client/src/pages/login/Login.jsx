@@ -19,7 +19,8 @@ const Login = () => {
       dispatch({
         type: "HIDE_LOADING",
       });
-      message.success("User Login Successfully!");
+      console.log(value);
+      message.success("Login Berhasil");
       localStorage.setItem("auth", JSON.stringify(res.data));
       navigate("/");
     } catch (error) {

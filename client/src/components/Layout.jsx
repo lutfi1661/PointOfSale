@@ -9,6 +9,7 @@ import { RiBillLine } from "react-icons/ri";
 import { FiUsers } from "react-icons/fi";
 import { TbReport } from "react-icons/tb";
 import { BiFoodMenu, BiLogOut, BiCartAlt } from "react-icons/bi";
+import { AiOutlineLineChart, AiOutlineBarChart } from "react-icons/ai";
 
 const { Header } = Layout;
 
@@ -23,10 +24,10 @@ const LayoutApp = ({ children }) => {
 
   const menus = [
     { name: "Menu", link: "/", icon: MdOutlineDashboard },
-    { name: "Faktur", link: "/bills", icon: RiBillLine },
+    { name: "Transaksi", link: "/bills", icon: RiBillLine },
     { name: "Produk", link: "/products", icon: BiFoodMenu },
     // { name: "Karyawan", link: "/employee", icon: FiUsers },
-    { name: "Laporan", link: "/reports", icon: TbReport },
+    { name: "Laporan", link: "/report", icon: AiOutlineBarChart },
   ];
 
   const [open, setOpen] = useState(true);
@@ -116,11 +117,31 @@ const LayoutApp = ({ children }) => {
             className="cursor-pointer inline"
             onClick={() => setOpen(!open)}
           />
-          <div className="cart-items" onClick={() => navigate("/cart")}>
-            <BiCartAlt className="inline" style={{ width: 30, height: 30 }} />
+          <div
+            className="relative mr-4 cursor-pointer"
+            onClick={() => navigate("/cart")}
+          >
+            {/* <BiCartAlt className="inline" style={{ width: 30, height: 30 }} />
             <span className="bg-green-400 font-bold text-white rounded-full p-2">
               {cartItems.length}
-            </span>
+            </span> */}
+            <Badge
+              status="success"
+              count={`${cartItems.length}`}
+              offset={[0, 2]}
+              className="p-2"
+            >
+              <Avatar
+                size="large"
+                style={{
+                  backgroundColor: "white",
+                  verticalAlign: "middle",
+                  color: "grey",
+                }}
+              >
+                <BiCartAlt size={30} style={{ marginTop: "5px" }} />
+              </Avatar>
+            </Badge>
           </div>
         </Header>
         {/* CONTENT */}

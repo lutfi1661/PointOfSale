@@ -3,7 +3,6 @@ import { useDispatch } from "react-redux";
 import CurrencyFormat from "react-currency-format";
 import { BsFillCartPlusFill } from "react-icons/bs";
 import { message } from "antd";
-
 const Product = ({ product }) => {
   const dispatch = useDispatch();
 
@@ -12,7 +11,7 @@ const Product = ({ product }) => {
       type: "ADD_TO_CART",
       payload: { ...product, quantity: 1 },
     });
-    message.success("Produk ditambahkan ke keranjang");
+    message.success("Produk Ditambahkan ke Keranjang");
   };
 
   return (
@@ -41,7 +40,7 @@ const Product = ({ product }) => {
             />
           </p>
           <div
-            class="ml-auto text-green-400 cursor-pointer hover:text-green-600"
+            class="ml-auto text-lime-500 cursor-pointer hover:text-lime-600"
             onClick={() => handlerToCart()}
           >
             <BsFillCartPlusFill size={25} />
