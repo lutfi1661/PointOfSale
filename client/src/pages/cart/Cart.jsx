@@ -127,7 +127,7 @@ const Cart = () => {
         userId: JSON.parse(localStorage.getItem("auth"))._id,
       };
       await axios.post("/api/bills/addbills", newObject);
-      message.success("Bill Generated!");
+      // message.success("Bill Generated!");
 
       // click btn-hapus
       document.querySelectorAll(".btn-hapus").forEach((btn) => {

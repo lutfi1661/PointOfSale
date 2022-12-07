@@ -41,19 +41,23 @@ const Product = ({ product }) => {
               renderText={(value) => <div>{value}</div>}
             />
           </p>
-          <button
-            class="ml-auto text-lime-500 cursor-pointer hover:text-lime-600"
-            onClick={() => handlerToCart()} disabled
-          >
-            
-            {product.status === "habis" ? ( 
-              // Jika status produk habis maka tombol beli akan di disable dan muncul tulisan "Habis" di bawah tombol beli tersebut
-              <p className="text-red-500 font-semibold">Habis</p>
-            ) : (
-              // Jika status produk tidak habis maka tombol beli akan di enable dan tidak muncul tulisan "Habis" di bawah tombol beli tersebut
+          {product.status === "habis" ? (
+            // Jika status produk habis maka tombol beli akan di disable dan muncul tulisan "Habis" di bawah tombol beli tersebut
+
+            <div
+              class="ml-auto text-lime-500 cursor-text hover:text-lime-600"
+            >
+              <p className="text-red-500 font-semibold cursor-text">Habis</p>
+            </div>
+          ) : (
+            // Jika status produk tidak habis maka tombol beli akan di enable dan tidak muncul tulisan "Habis" di bawah tombol beli tersebut
+            <div
+              class="ml-auto text-lime-500 cursor-pointer hover:text-lime-600"
+              onClick={() => handlerToCart()}
+            >
               <BsFillCartPlusFill size={25} />
-            )}
-          </button>
+            </div>
+          )}
         </div>
       </div>
     </div>
