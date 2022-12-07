@@ -23,8 +23,8 @@ const LayoutApp = ({ children }) => {
 
   const menus = [
     { name: "Menu", link: "/", icon: MdOutlineDashboard },
-    { name: "Transaksi", link: "/bills", icon: RiBillLine },
     { name: "Produk", link: "/products", icon: BiFoodMenu },
+    { name: "Transaksi", link: "/bills", icon: RiBillLine },
     // { name: "Karyawan", link: "/employee", icon: FiUsers },
     { name: "Laporan", link: "/report", icon: AiOutlineBarChart },
   ];
