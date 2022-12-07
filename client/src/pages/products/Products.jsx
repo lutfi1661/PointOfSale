@@ -1,5 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import ModalImage from "react-modal-image";
 import { useDispatch } from "react-redux";
 import LayoutApp from "../../components/Layout";
 import {
@@ -90,7 +91,14 @@ const Products = () => {
       title: "Gambar",
       dataIndex: "image",
       render: (image, record) => (
-        <Image src={image} alt={record.name} height={60} width={60} />
+        <ModalImage
+          small={image}
+          large={image}
+          alt={record.name}
+          className="w-[60px] h-[60px]"
+          width={60}
+          showRotate="true"
+        />
       ),
     },
     {
