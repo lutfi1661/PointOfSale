@@ -102,83 +102,88 @@ const Products = () => {
       ),
     },
     {
-      title: "Kategori",
-      dataIndex: "category",
-      filters: [
+      title: "Jenis",
+      children: [
         {
-          text: "Makanan",
-          value: "makanan",
-        },
-        {
-          text: "Minuman",
-          value: "minuman",
-        },
-      ],
-      onFilter: (value, record) => record.category.startsWith(value),
-      filterSearch: true,
-    },
-    {
-      title: "Sub Kategory",
-      dataIndex: "subcategory",
-      filters: [
-        {
-          text: "Makanan",
-          children: [
+          title: "Kategori",
+          dataIndex: "category",
+          filters: [
             {
-              text: "Ayam",
-              value: "ayam",
+              text: "Makanan",
+              value: "makanan",
             },
             {
-              text: "Daging",
-              value: "daging",
-            },
-            {
-              text: "Seafood",
-              value: "seafood",
-            },
-            {
-              text: "Nasi",
-              value: "Nasi",
-            },
-            {
-              text: "Cemilan",
-              value: "cemilan",
-            },
-            {
-              text: "Makanan Lain",
-              value: "makanan lain",
+              text: "Minuman",
+              value: "minuman",
             },
           ],
+          onFilter: (value, record) => record.category.startsWith(value),
+          filterSearch: true,
         },
         {
-          text: "Minuman",
-          children: [
+          title: "Sub Kategori",
+          dataIndex: "subcategory",
+          filters: [
             {
-              text: "Teh",
-              value: "teh",
+              text: "Makanan",
+              children: [
+                {
+                  text: "Ayam",
+                  value: "ayam",
+                },
+                {
+                  text: "Daging",
+                  value: "daging",
+                },
+                {
+                  text: "Seafood",
+                  value: "seafood",
+                },
+                {
+                  text: "Nasi",
+                  value: "Nasi",
+                },
+                {
+                  text: "Cemilan",
+                  value: "cemilan",
+                },
+                {
+                  text: "Makanan Lain",
+                  value: "makanan lain",
+                },
+              ],
             },
             {
-              text: "Kopi",
-              value: "kopi",
-            },
-            {
-              text: "Susu",
-              value: "susu",
-            },
-            {
-              text: "Jus",
-              value: "jus",
-            },
-            {
-              text: "Minuman lain",
-              value: "minuman lain",
+              text: "Minuman",
+              children: [
+                {
+                  text: "Teh",
+                  value: "teh",
+                },
+                {
+                  text: "Kopi",
+                  value: "kopi",
+                },
+                {
+                  text: "Susu",
+                  value: "susu",
+                },
+                {
+                  text: "Jus",
+                  value: "jus",
+                },
+                {
+                  text: "Minuman lain",
+                  value: "minuman lain",
+                },
+              ],
             },
           ],
+          filterMode: "tree",
+          filterSearch: true,
+          onFilter: (value, record) => record.subcategory.includes(value),
         },
       ],
-      filterMode: "tree",
-      filterSearch: true,
-      onFilter: (value, record) => record.subcategory.includes(value),
     },
     {
       title: "Harga",

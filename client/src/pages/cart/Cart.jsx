@@ -127,13 +127,12 @@ const Cart = () => {
         userId: JSON.parse(localStorage.getItem("auth"))._id,
       };
       await axios.post("/api/bills/addbills", newObject);
-      // message.success("Bill Generated!");
 
       // click btn-hapus
       document.querySelectorAll(".btn-hapus").forEach((btn) => {
         btn.click();
       });
-      
+
       // redirect to bills page
       message.success("Transaksi Berhasil Dibuat!");
       navigate("/bills");

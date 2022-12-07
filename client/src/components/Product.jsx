@@ -44,10 +44,10 @@ const Product = ({ product }) => {
           {product.status === "habis" ? (
             // Jika status produk habis maka tombol beli akan di disable dan muncul tulisan "Habis" di bawah tombol beli tersebut
 
-            <div
-              class="ml-auto text-lime-500 cursor-text hover:text-lime-600"
-            >
-              <p className="text-red-500 font-semibold cursor-text">Habis</p>
+            <div class="ml-auto text-lime-500 cursor-text hover:text-lime-600 align-text-bottom">
+              <p className="text-red-500 font-semibold cursor-text text-base ">
+                Habis
+              </p>
             </div>
           ) : (
             // Jika status produk tidak habis maka tombol beli akan di enable dan tidak muncul tulisan "Habis" di bawah tombol beli tersebut
