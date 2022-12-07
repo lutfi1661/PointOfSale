@@ -98,7 +98,7 @@ const Cart = () => {
         // />
 
         <button
-          className="block w-full bg-red-500 hover:bg-red-600 text-white font-semibold py-1 px-2 rounded-lg"
+          className="block w-full bg-red-500 hover:bg-red-600 text-white font-semibold py-1 px-2 rounded-lg btn-hapus"
           onClick={() => handlerDelete(record)}
         >
           Hapus
@@ -133,12 +133,20 @@ const Cart = () => {
       };
       await axios.post("/api/bills/addbills", newObject);
       message.success("Bill Generated!");
+
+      // click btn-hapus
+      document.querySelectorAll(".btn-hapus").forEach((btn) => {
+        btn.click();
+      });
+      
+      // redirect to bills page
       navigate("/bills");
     } catch (error) {
       message.error("Error!");
       console.log(error);
     }
   };
+
   return (
     <Layout>
       <h2>Keranjang</h2>

@@ -14,6 +14,8 @@ const Product = ({ product }) => {
     message.success("Produk Ditambahkan ke Keranjang");
   };
 
+  console.log(product);
+
   return (
     <div class="bg-white shadow-md hover:scale-105 hover:shadow-xl duration-500 rounded-xl">
       <img
@@ -39,12 +41,19 @@ const Product = ({ product }) => {
               renderText={(value) => <div>{value}</div>}
             />
           </p>
-          <div
+          <button
             class="ml-auto text-lime-500 cursor-pointer hover:text-lime-600"
-            onClick={() => handlerToCart()}
+            onClick={() => handlerToCart()} disabled
           >
-            <BsFillCartPlusFill size={25} />
-          </div>
+            
+            {product.status === "habis" ? ( 
+              // Jika status produk habis maka tombol beli akan di disable dan muncul tulisan "Habis" di bawah tombol beli tersebut
+              <p className="text-red-500 font-semibold">Habis</p>
+            ) : (
+              // Jika status produk tidak habis maka tombol beli akan di enable dan tidak muncul tulisan "Habis" di bawah tombol beli tersebut
+              <BsFillCartPlusFill size={25} />
+            )}
+          </button>
         </div>
       </div>
     </div>
