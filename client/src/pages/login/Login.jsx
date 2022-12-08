@@ -10,19 +10,27 @@ const Login = () => {
   const navigate = useNavigate();
 
   const handlerSubmit = async (value) => {
-    //console.log(value);
+    // console.log(value.userId);
+
     try {
-      dispatch({
-        type: "SHOW_LOADING",
-      });
-      const res = await axios.post("/api/users/login", value);
-      dispatch({
-        type: "HIDE_LOADING",
-      });
-      console.log(value);
-      message.success("Berhasil Login!");
-      localStorage.setItem("auth", JSON.stringify(res.data));
-      navigate("/");
+      if (value.userId === "" || value.password === "") {
+        message.error("Username atau Password tidak boleh kosong!");
+        return;
+      }
+      else if (value.userId === "admin@gmail.com" && value.password === "admin") {
+        dispatch({
+          type: "SHOW_LOADING",
+        });
+        const res = await axios.post("/api/users/login", value);
+        dispatch({
+          type: "HIDE_LOADING",
+        });
+        console.log(value);
+        message.success("Berhasil Login!");
+        localStorage.setItem("auth", JSON.stringify(res.data));
+        navigate("/");
+      }
+
     } catch (error) {
       dispatch({
         type: "HIDE_LOADING",
