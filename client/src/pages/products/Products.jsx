@@ -84,7 +84,6 @@ const Products = () => {
       title: "Nama",
       dataIndex: "name",
       defaultSortOrder: "descend",
-      sorter: (a, b) => a.name.length - b.name.length,
       width: "30%",
     },
     {
@@ -125,58 +124,48 @@ const Products = () => {
           dataIndex: "subcategory",
           filters: [
             {
-              text: "Makanan",
-              children: [
-                {
-                  text: "Ayam",
-                  value: "ayam",
-                },
-                {
-                  text: "Daging",
-                  value: "daging",
-                },
-                {
-                  text: "Seafood",
-                  value: "seafood",
-                },
-                {
-                  text: "Nasi",
-                  value: "Nasi",
-                },
-                {
-                  text: "Cemilan",
-                  value: "cemilan",
-                },
-                {
-                  text: "Makanan Lain",
-                  value: "makanan lain",
-                },
-              ],
+              text: "Ayam",
+              value: "ayam",
             },
             {
-              text: "Minuman",
-              children: [
-                {
-                  text: "Teh",
-                  value: "teh",
-                },
-                {
-                  text: "Kopi",
-                  value: "kopi",
-                },
-                {
-                  text: "Susu",
-                  value: "susu",
-                },
-                {
-                  text: "Jus",
-                  value: "jus",
-                },
-                {
-                  text: "Minuman lain",
-                  value: "minuman lain",
-                },
-              ],
+              text: "Daging",
+              value: "daging",
+            },
+            {
+              text: "Seafood",
+              value: "seafood",
+            },
+            {
+              text: "Nasi",
+              value: "Nasi",
+            },
+            {
+              text: "Cemilan",
+              value: "cemilan",
+            },
+            {
+              text: "Makanan Lain",
+              value: "makanan lain",
+            },
+            {
+              text: "Teh",
+              value: "teh",
+            },
+            {
+              text: "Kopi",
+              value: "kopi",
+            },
+            {
+              text: "Susu",
+              value: "susu",
+            },
+            {
+              text: "Jus",
+              value: "jus",
+            },
+            {
+              text: "Minuman lain",
+              value: "minuman lain",
             },
           ],
           filterMode: "tree",
@@ -469,10 +458,13 @@ const Products = () => {
                 ]}
               >
                 <Upload name="image" listType="picture">
-                  <button className="p-2 bg-amber-500 font-semibold text-white rounded-lg hover:bg-amber-600">
+                  <Button
+                    type="primary"
+                    className="p-2 bg-amber-500 font-semibold text-white rounded-lg hover:bg-amber-600"
+                  >
                     <TbUpload size={20} className="inline mr-2 mb-1" />
                     Unggah File
-                  </button>
+                  </Button>
                 </Upload>
               </Form.Item>
             )}

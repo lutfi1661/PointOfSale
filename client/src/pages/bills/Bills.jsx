@@ -6,6 +6,7 @@ import { useReactToPrint } from "react-to-print";
 import { useDispatch } from "react-redux";
 import Layout from "../../components/Layout";
 import CurrencyFormat from "react-currency-format";
+import Moment from "react-moment";
 
 const Bills = () => {
   const componentRef = useRef();
@@ -141,13 +142,13 @@ const Bills = () => {
             </div>
             <div className="cardBody">
               <div className="group">
-                <span>Nama Pelanggan:</span>
+                <span>Nama Pelanggan :</span>
                 <span>
                   <b>{selectedBill.customerName}</b>
                 </span>
               </div>
               <div className="group">
-                <span>Nomor Telepon:</span>
+                <span>Nomor Telepon :</span>
                 <span>
                   <b>{selectedBill.customerPhone}</b>
                 </span>
@@ -159,13 +160,18 @@ const Bills = () => {
                 </span>
               </div>
               <div className="group">
-                <span>Tanggal Pembelian:</span>
+                <span>Tanggal Pembelian :</span>
                 <span>
-                  <b>{selectedBill.createdAt.toString().substring(0, 10)}</b>
+                  <b>
+                    <Moment format="DD-MM-YYYY HH:mm">
+                      {/* {selectedBill.createdAt.toString().substring(0, 10)} */}
+                      {selectedBill.createdAt.toString()}
+                    </Moment>
+                  </b>
                 </span>
               </div>
               <div className="group">
-                <span>Total Pembelian:</span>
+                <span>Total Pembelian :</span>
                 <span>
                   <b>
                     <CurrencyFormat
