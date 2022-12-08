@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Layout from "../../components/Layout";
 import { Button, Form, Input, message, Modal, Select, Table } from "antd";
@@ -7,10 +7,19 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import CurrencyFormat from "react-currency-format";
 import { TbCirclePlus, TbCircleMinus } from "react-icons/tb";
+import { render } from "react-dom";
+import { useReactToPrint } from "react-to-print";
 
 const Cart = () => {
   const [subTotal, setSubTotal] = useState(0);
   const [billPopUp, setBillPopUp] = useState(false);
+  const [popModal, setPopModal] = useState(false);
+  const [newObject, setNewObject] = useState({});
+  const componentRef = useRef();
+  const current = new Date();
+  const date = `${current.getDate()}/${
+    current.getMonth() + 1
+  }/${current.getFullYear()}`;
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -39,6 +48,10 @@ const Cart = () => {
       payload: record,
     });
   };
+
+  const handlePrint = useReactToPrint({
+    content: () => componentRef.current,
+  });
 
   const columns = [
     {
@@ -114,7 +127,7 @@ const Cart = () => {
   const handlerSubmit = async (value) => {
     //console.log(value);
     try {
-      const newObject = {
+      const newObjectInsert = {
         ...value,
         cartItems,
         subTotal,
@@ -126,16 +139,24 @@ const Cart = () => {
         ),
         userId: JSON.parse(localStorage.getItem("auth"))._id,
       };
-      await axios.post("/api/bills/addbills", newObject);
+      await axios.post("/api/bills/addbills", newObjectInsert);
+
+      setNewObject(newObjectInsert);
 
       // click btn-hapus
       document.querySelectorAll(".btn-hapus").forEach((btn) => {
         btn.click();
       });
 
-      // redirect to bills page
+      // send message
       message.success("Transaksi Berhasil Dibuat!");
-      navigate("/bills");
+
+      setBillPopUp(false);
+      setPopModal(true);
+
+      console.log(newObject);
+
+      // navigate("/bills");
     } catch (error) {
       message.error("Error!");
       console.log(error);
@@ -257,6 +278,174 @@ const Cart = () => {
           </button>
         </Form>
       </Modal>
+      {popModal && (
+        <Modal
+          title="Detail Faktur"
+          width={800}
+          pagination={false}
+          visible={popModal}
+          onCancel={() => setPopModal(false)}
+          footer={false}
+        >
+          <div className="card p-10" ref={componentRef}>
+            <div className="cardHeader">
+              <h2 className="logo">NAEL POS</h2>
+            </div>
+            <div className="cardBody">
+              <div className="group">
+                <span>Nama Pelanggan:</span>
+                <span>
+                  <b>{newObject.customerName}</b>
+                </span>
+              </div>
+              <div className="group">
+                <span>Nomor Telepon:</span>
+                <span>
+                  <b>{newObject.customerPhone}</b>
+                </span>
+              </div>
+              <div className="group">
+                <span>Alamat:</span>
+                <span>
+                  <b>{newObject.customerAddress}</b>
+                </span>
+              </div>
+              <div className="group">
+                <span>Tanggal Pembelian:</span>
+                <span>
+                  <b>{date}</b>
+                </span>
+              </div>
+              <div className="group">
+                <span>Total Pembelian:</span>
+                <span>
+                  <b>
+                    <CurrencyFormat
+                      value={newObject.totalAmount}
+                      displayType={"text"}
+                      thousandSeparator={"."}
+                      decimalSeparator={","}
+                      prefix={"Rp"}
+                      renderText={(value) => <div>{value}</div>}
+                    />
+                  </b>
+                </span>
+              </div>
+            </div>
+            <div className="cardFooter">
+              <h4>Pembelianmu</h4>
+              <div class="overflow-x-auto relative shadow-md sm:rounded-lg">
+                <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+                  <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                    <tr>
+                      <th scope="col" class="py-3 px-6">
+                        Item
+                      </th>
+                      <th scope="col" class="py-3 px-6">
+                        Jumlah
+                      </th>
+                      <th scope="col" class="py-3 px-6">
+                        Harga
+                      </th>
+                      <th scope="col" class="py-3 px-6">
+                        Total
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {newObject.cartItems.map((product) => (
+                      <>
+                        <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
+                          <th
+                            scope="row"
+                            class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                          >
+                            {product.name}
+                          </th>
+                          <td class="py-4 px-6">{product.quantity}</td>
+                          <td class="py-4 px-6">
+                            <CurrencyFormat
+                              value={product.price}
+                              displayType={"text"}
+                              thousandSeparator={"."}
+                              decimalSeparator={","}
+                              prefix={"Rp"}
+                              renderText={(value) => <div>{value}</div>}
+                            />
+                          </td>
+                          <td class="py-4 px-6">
+                            <CurrencyFormat
+                              value={product.price * product.quantity}
+                              displayType={"text"}
+                              thousandSeparator={"."}
+                              decimalSeparator={","}
+                              prefix={"Rp"}
+                              renderText={(value) => <div>{value}</div>}
+                            />
+                          </td>
+                        </tr>
+                      </>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+              <div className="footerCardTotal">
+                <div className="group">
+                  <h3 className="uppercase">Subtotal</h3>
+                  <h3>
+                    <CurrencyFormat
+                      value={newObject.subTotal}
+                      displayType={"text"}
+                      thousandSeparator={"."}
+                      decimalSeparator={","}
+                      prefix={"Rp"}
+                      renderText={(value) => <div>{value}</div>}
+                    />
+                  </h3>
+                </div>
+                <div className="group">
+                  <h3 className="uppercase">Pajak (10%)</h3>
+                  <h3>
+                    <CurrencyFormat
+                      value={newObject.tax}
+                      displayType={"text"}
+                      thousandSeparator={"."}
+                      decimalSeparator={","}
+                      prefix={"Rp"}
+                      renderText={(value) => <div>{value}</div>}
+                    />
+                  </h3>
+                </div>
+                <div className="group">
+                  <h3 className="uppercase font-bold">Total</h3>
+                  <h3>
+                    <b>
+                      <CurrencyFormat
+                        value={newObject.totalAmount}
+                        displayType={"text"}
+                        thousandSeparator={"."}
+                        decimalSeparator={","}
+                        prefix={"Rp"}
+                        renderText={(value) => <div>{value}</div>}
+                      />
+                    </b>
+                  </h3>
+                </div>
+              </div>
+              <div className="footerThanks">
+                <span className="uppercase">
+                  Terima Kasih Telah Memesan Produk Kami
+                </span>
+              </div>
+            </div>
+          </div>
+          <div className="bills-btn-add">
+            <Button onClick={handlePrint} htmlType="submit" className="add-new">
+              Cetak Faktur
+            </Button>
+          </div>
+        </Modal>
+      )}
     </Layout>
   );
 };
