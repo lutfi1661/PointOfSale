@@ -53,6 +53,12 @@ const Cart = () => {
     content: () => componentRef.current,
   });
 
+  const handlerCetakFaktur = () => {
+    handlePrint();
+    setPopModal(false);
+    navigate("/");
+  };
+
   const columns = [
     {
       title: "Nama Item",
@@ -440,7 +446,7 @@ const Cart = () => {
             </div>
           </div>
           <div className="bills-btn-add">
-            <Button onClick={handlePrint} htmlType="submit" className="add-new">
+            <Button onClick={handlerCetakFaktur} htmlType="submit" className="add-new">
               Cetak Faktur
             </Button>
           </div>
