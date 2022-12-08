@@ -501,7 +501,7 @@ const Products = () => {
             <div className="form-btn-add">
               <button
                 htmlType="submit"
-                className="p-2 font-semibold text-white bg-orange-500 hover:bg-green-700 rounded-lg"
+                className="p-4 font-semibold text-white bg-orange-500 hover:bg-orange-600 rounded-lg"
               >
                 Simpan
               </button>

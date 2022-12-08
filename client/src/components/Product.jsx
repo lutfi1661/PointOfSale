@@ -12,6 +12,7 @@ const Product = ({ product }) => {
       payload: { ...product, quantity: 1 },
     });
     message.success("Produk Ditambahkan ke Keranjang");
+    console.log(product);
   };
 
   console.log(product);
@@ -45,7 +46,7 @@ const Product = ({ product }) => {
             // Jika status produk habis maka tombol beli akan di disable dan muncul tulisan "Habis" di bawah tombol beli tersebut
 
             <div class="ml-auto text-lime-500 cursor-text hover:text-lime-600 align-text-bottom">
-              <p className="text-red-500 font-semibold cursor-text text-base ">
+              <p className="text-red-500 font-semibold cursor-text text-base pt-3">
                 Habis
               </p>
             </div>

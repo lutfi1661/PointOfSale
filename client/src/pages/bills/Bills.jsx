@@ -294,9 +294,9 @@ const Bills = () => {
             </div>
           </div>
           <div className="bills-btn-add">
-            <Button onClick={handlePrint} htmlType="submit" className="add-new">
+            <button onClick={handlePrint} htmlType="submit" className="add-new">
               Cetak Faktur
-            </Button>
+            </button>
           </div>
         </Modal>
       )}
